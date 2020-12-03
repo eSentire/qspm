@@ -50,7 +50,7 @@ setup: .setup  ## Initial setup.
 # This only needs to be done once.
 .setup: | tools/setup.sh
 	$(call hdr,"setup")
-	./tools/setup.sh
+	$(SHELL) ./tools/setup.sh
 	pipenv install -d
 	@touch $@
 
