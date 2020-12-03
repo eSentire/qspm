@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install pandoc
-        uses: apt-get install haskell-platform
+        uses: sudo apt-get install haskell-platform
 
       - name: Build
         run: make
