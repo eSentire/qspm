@@ -23,11 +23,14 @@ window.addEventListener("load", function(evt) {
 
 // Initialize. Basically just add in the password fieldset.
 function initRaw() {
-    var div = document.getElementById('rawPasswordFieldset');
-    div.innerHTML = "";  // clear the DOM.
-
-    var fieldset1 = window.passwordCreateFieldset('rawPassword', 'Master Password', false);
-    div.appendChild(fieldset1)
+    var pfs = document.getElementById('rawPasswordId');
+    if (!pfs) {
+        // Don't re-create it if it is already there.
+        var div = document.getElementById('rawPasswordFieldset');
+        var fieldset = window.passwordCreateFieldset('rawPassword', 'Master Password', false);
+        div.innerHTML = "";  // clear the DOM.
+        div.appendChild(fieldset)
+    }
 }
 
 // Upload/download options.
@@ -335,6 +338,6 @@ function doTextSize() {
     if (!!obj1.value) {
         obj2.innerHTML = "(" + obj1.value.length + ")";
     } else {
-        obj2.innerHTML = "(?)";
+        obj2.innerHTML = "(0)";
     }
 }
