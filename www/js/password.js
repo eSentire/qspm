@@ -15,8 +15,7 @@ function passwordClear(id, szid) {
     obj.setSelectionRange(obj.value.length,obj.value.length);
     obj.click();
     if (szid) {
-        var obj1 = document.getElementById(szid);
-        obj1.innerHTML = "";
+        passwordSize(obj, szid);
     }
 }
 
@@ -24,18 +23,6 @@ function passwordClear(id, szid) {
 function passwordSize(me, szid) {
     var obj = document.getElementById(szid);
     obj.innerHTML = "(" + me.value.length + ")";
-}
-
-// Show or hide a password.
-function passwordShowHide(me, id) {
-    var obj = document.getElementById(id);
-    if (obj.type == "text") {
-        obj.type = "password";
-        me.innerHTML = "Show";
-    } else {
-        obj.type = "text";
-        me.innerHTML = "Hide";
-    }
 }
 
 // Generate a pseudo-random password.
@@ -67,8 +54,19 @@ function passwordGenerate(id, szid) {
     var obj = document.getElementById(id);
     obj.value = result;
     if (szid) {
-        var obj1 = document.getElementById(szid);
-        obj1.innerHTML = "(" + result.length + ")";
+        passwordSize(obj, szid);
+    }
+}
+
+// Show or hide a password.
+function passwordShowHide(me, id) {
+    var obj = document.getElementById(id);
+    if (obj.type == "text") {
+        obj.type = "password";
+        me.innerHTML = "Show";
+    } else {
+        obj.type = "text";
+        me.innerHTML = "Hide";
     }
 }
 
