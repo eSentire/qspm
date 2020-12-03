@@ -1,7 +1,7 @@
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     helpResize();
 });
-
 
 function helpResize() {
     var obj = document.getElementById("helpObject");

@@ -148,7 +148,8 @@ $(HELPFILE): README.md
 $(VERFILE): VERSION
 	$(call hdr,"$(PROJECT)-$@")
 	@echo '// Automatically generated from VERSION.' > $@
-	@echo 'window.addEventListener("load", function(evt) {' >> $@
+	@echo '/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/' >> $@
+	@echo 'window.addEventListener("load", function(_evt) {' >> $@
 	@echo '    document.getElementById("version").innerHTML = "$(VERSION)";' >> $@
 	@echo '    window.$(PROJECT)Version = "$(VERSION)";' >> $@
 	@echo '});' >> $@

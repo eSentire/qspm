@@ -1,5 +1,6 @@
 // General utilities.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.utilGetJsonRecords = utilGetJsonRecords;
     window.utilUpdateRecords = utilUpdateRecords;
     window.utilUpdateMetaTime = utilUpdateMetaTime;
@@ -34,7 +35,7 @@ function utilSetCryptTextSize() {
 }
 
 // Get the crypt text.
-function utilGetCryptText(text) {
+function utilGetCryptText() {
     return document.getElementById('cryptText').value;
 }
 
@@ -110,7 +111,7 @@ function utcnow() {
 
 // Zero pad a number.
 function utilZeroPad(n, len) {
-    s = n.toString();
+    var s = n.toString();
     if (s.length < len) {
         s = ('000000000000' + s).slice(-len);
     }

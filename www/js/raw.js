@@ -1,5 +1,6 @@
 // Raw tab services.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     document.getElementById('ulUpload').addEventListener('click', upload);
     document.getElementById('ulDownload').addEventListener('click', download);
     document.getElementById('ulDownloadFile').addEventListener('click', downloadFile);
@@ -116,7 +117,6 @@ function download() {
 // Download a file.
 function downloadFile() {
     var div = document.getElementById("ulFileListDiv");
-    var fname = document.getElementById('ulFile').value.trim();
     var input = document.createElement("INPUT");
     div.innerHTML = "";
     input.setAttribute("id", "download-text-file-selector");
@@ -142,9 +142,7 @@ function downloadFile() {
 
 // Download data from a URL.
 function downloadUrl() {
-    var div = document.getElementById("ulUrlListDiv");
     var url = document.getElementById('ulUrl').value.trim();
-    var input = document.createElement("INPUT");
     if (!url) {
         alert("WARNING! URL was not specified");
         return;

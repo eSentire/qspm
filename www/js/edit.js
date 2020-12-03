@@ -1,6 +1,8 @@
 // Edit tab services.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.doEdit = doEdit;
+    window.editMakePanel = editMakePanel;
 });
 
 function doEdit() {
@@ -39,8 +41,9 @@ function editSearchRecords() {
         div.appendChild(par);
 
         // Load the records to order by name and sort by name.
+        var rkey;
         var rkeys = []
-        for (var rkey in rec["records"]) {
+        for (rkey in rec["records"]) {
             rkeys.push(rkey);
         }
         var srkeys = rkeys.sort(window.utilSortCaseInsensitiveCompare);
@@ -50,7 +53,7 @@ function editSearchRecords() {
 
         // Display each record as a button.
         for (var i=0; i < srkeys.length; i++) {
-            var rkey = srkeys[i];
+            rkey = srkeys[i];
             if (rkey.toUpperCase().match(regex)) {
                 // Fixed rkey is for the case where the rkey has
                 // an embedded single quote.
@@ -125,7 +128,7 @@ function editMakePanel(record, rkey) {
     tr.appendChild(td);
 
     td = document.createElement("TD");
-    inp = document.createElement("INPUT");
+    var inp = document.createElement("INPUT");
     inp.setAttribute("type", "text");
     inp.setAttribute("value", rkey);
     inp.setAttribute("size", "120");
@@ -206,10 +209,10 @@ function editAppendTableRowAction(rkey) {
 }
 
 function editAppendTableRow(tbody, rkey, key, val) {
-    tr = document.createElement("TR");
+    var tr = document.createElement("TR");
 
-    td = document.createElement("TD");
-    inp = document.createElement("INPUT");
+    var td = document.createElement("TD");
+    var inp = document.createElement("INPUT");
     inp.setAttribute("type", "text");
     inp.setAttribute("value", key);
     inp.setAttribute("size", "32");
@@ -283,7 +286,7 @@ function editSaveRecord(rkey) {
         return;
     }
 
-    if (!"records" in rec) {
+    if (!("records" in rec)) {
         rec["records"] = {};
     }
     rec["records"][name] = nrec;

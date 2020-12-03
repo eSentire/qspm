@@ -1,9 +1,13 @@
 // Add tab services.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.doAdd = doAdd;
 });
 
+const MAX_ADD_ROWS = 16;
+
 function doAdd() {
+    var i;
     var insert = document.getElementById('addInsert');
     insert.innerHTML = "";  // clear the DOM.
 
@@ -18,7 +22,7 @@ function doAdd() {
     var thead = document.createElement("THEAD");
     var tr = document.createElement("TR");
     var thns = ["#", "Field", "Value"];
-    for (var i in thns) {
+    for (i in thns) {
         var th = document.createElement("TH");
         th.innerHTML = thns[i];
         tr.appendChild(th);
@@ -51,7 +55,7 @@ function doAdd() {
     tbody.appendChild(tr);
 
     // All of the other rows are boiler plate.
-    for (var i=1; i<=5; i++) {
+    for (i=1; i<=5; i++) {
         addAppendTableRow(tbody, i);
     }
     tbl.appendChild(tbody);
@@ -117,8 +121,8 @@ function addAppendTableRow(tbody, i) {
     td.innerHTML = i;
     tr.appendChild(td);
 
-    var td = document.createElement("TD");
-    input = document.createElement("INPUT");
+    td = document.createElement("TD");
+    var input = document.createElement("INPUT");
     input.setAttribute("type", "text");
     input.setAttribute("id", "add-rec-" + i + "-key");
     input.setAttribute("size", "32");
@@ -155,7 +159,7 @@ function addSaveRecord() {
         return
     }
     var rec = window.utilGetJsonRecords();
-    if (!"records" in rec) {
+    if (!("records" in rec)) {
         rec["records"] = {};
     }
     if (rkey in rec["records"]) {

@@ -1,5 +1,6 @@
 // Password utilities.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.passwordSize = passwordSize;
     window.passwordClear = passwordClear;
     window.passwordShowHide = passwordShowHide;

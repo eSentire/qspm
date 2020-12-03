@@ -1,5 +1,13 @@
 // Load the wasm modules/variables and make them available.
-import { header_prefix, get_num_algorithms, get_algorithm, encrypt, decrypt, default as init } from './qspm.js';
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+import {
+    header_prefix,
+    get_num_algorithms,
+    get_algorithm,
+    encrypt,
+    decrypt,
+    default as init
+} from './qspm.js';
 async function load_wasm() {
     await init('./wasm/qspm_bg.wasm');
     window.wasm = {
@@ -14,7 +22,7 @@ async function load_wasm() {
     window.doAlgorithmSet = doAlgorithmSet;
 }
 
-window.addEventListener("load", function(evt) {
+window.addEventListener("load", function(_evt) {
     load_wasm();
 });
 

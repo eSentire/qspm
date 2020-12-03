@@ -1,5 +1,6 @@
 // Dropbox utilities.
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.dropboxUpload = dropboxUpload;
     window.dropboxDownload = dropboxDownload;
     window.dropboxListFiles = dropboxListFiles;
@@ -50,7 +51,7 @@ function dropboxUpload() {
         }
     ).then(
         data => {
-            alert("SUCCESS! upload worked: " + fname);
+            alert("SUCCESS! upload worked: " + fname + " (" + data.length + ")");
         }
     ).catch((error) => {
         alert("WARNING! upload failed with code " + error);

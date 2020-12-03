@@ -1,4 +1,5 @@
 // citation: https://www.w3schools.com/howto/howto_js_tabs.asp
+/*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "openTab" }]*/
 function openTab(event, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;

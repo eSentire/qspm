@@ -1,10 +1,10 @@
-const MAX_ADD_ROWS = 16;
-
-window.addEventListener("load", function(evt) {
+/*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "^_" }]*/
+window.addEventListener("load", function(_evt) {
     window.doRecords = doRecords;
     window.recordsSearch = "";
 });
 
+// Display the records.
 function doRecords() {
     var rec = window.utilGetJsonRecords();
     if (Object.keys(rec).length === 0) {
@@ -69,16 +69,14 @@ function doRecords() {
     tval.setAttribute("id", "main-records-search-total");
     var total = 0;  // total records
     if ("records" in rec) {
-        for (rkey in rec["records"]) {
-            total++;
-        }
+        total = rec["records"].size
     }
     tval.innerHTML = "&nbsp;(" + total + ")";
     div.appendChild(tval);
     insert.appendChild(div);
 
     // Create the records entry.
-    var div = document.createElement("DIV");
+    div = document.createElement("DIV");
     div.setAttribute("id", "main-records");
 
     // Display the records.
@@ -98,7 +96,7 @@ function doRecords() {
 // Display the records.
 function displayRecords(rec, div) {
     // Records.
-    if (!"records" in rec) {
+    if (!("records" in rec)) {
         return;
     }
 
@@ -146,7 +144,7 @@ function displayRecord(rec, div, rid, rkey) {
     var tbody = document.createElement("TBODY");
 
     // Collect the fld keys.
-    fkeys = [];
+    var fkeys = [];
     for (fkey in rec["records"][rkey]) {
         fkeys.push(fkey);
     }
@@ -246,16 +244,17 @@ function clearRecordsSearch() {
 
 // Toggle the password visibility.
 function toggleRecordsPasswords() {
+    var i;
     var obj1 = document.getElementById("main-records-show-hide");
     var obj2s = document.getElementsByClassName("main-records-password-field");
     if (obj1.innerHTML == "Show") {
         obj1.innerHTML = "Hide";
-        for (var i=0; i<obj2s.length; i++) {
+        for (i=0; i<obj2s.length; i++) {
             obj2s[i].setAttribute("type", "text");
         }
     } else {
         obj1.innerHTML = "Show";
-        for (var i=0; i<obj2s.length; i++) {
+        for (i=0; i<obj2s.length; i++) {
             obj2s[i].setAttribute("type", "password");
         }
     }
@@ -360,7 +359,7 @@ function editRecord(rkey, gototab) {
     if ("records" in rec && rkey in rec["records"]) {
         // Get the fields in sorted order.
         var record = rec["records"][rkey];
-        editMakePanel(record, rkey);
+        window.editMakePanel(record, rkey);
     } else {
         alert("WARNING! record not found: '" + rkey + "'");
     }
