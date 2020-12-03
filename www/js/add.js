@@ -90,7 +90,10 @@ function doAdd() {
 
     insert.appendChild(fieldset);
 
-    var fieldset1 = window.passwordCreateFieldset('addPassword', 'Generate Password', true);
+    var fieldset1 = window.passwordCreateFieldset('addPassword',
+                                                  'Generate Password',
+                                                  true,
+                                                  '');
     insert.appendChild(document.createElement("P"));
     insert.appendChild(fieldset1);
 }

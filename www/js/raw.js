@@ -12,8 +12,7 @@ window.addEventListener("load", function(evt) {
     document.getElementById('cryptCompress').addEventListener('click', compressText);
     document.getElementById('cryptClear').addEventListener('click', clearText);
     document.getElementById('cryptExample').addEventListener('click', exampleText);
-    document.getElementById('cryptTextSize').addEventListener('click', doTextSize);
-    doTextSize();
+    document.getElementById('cryptTextSize').addEventListener('click', window.utilSetCryptTextSize);
     document.getElementById("defaultTab").click();
     window.doDecrypt = doDecrypt;
     window.doEncrypt = doEncrypt;
@@ -27,9 +26,20 @@ function initRaw() {
     if (!pfs) {
         // Don't re-create it if it is already there.
         var div = document.getElementById('rawPasswordFieldset');
-        var fieldset = window.passwordCreateFieldset('rawPassword', 'Master Password', false);
+        var fieldset = window.passwordCreateFieldset('rawPassword',
+                                                     'Master Password',
+                                                     false,
+                                                     'rawPasswordValue');
         div.innerHTML = "";  // clear the DOM.
         div.appendChild(fieldset)
+    }
+
+    // Initialize the text properly after a refresh.
+    let text = sessionStorage.getItem('cryptText');
+    if (text) {
+        window.utilSetCryptText(text);
+    } else {
+        window.utilSetCryptTextSize();
     }
 }
 
@@ -121,8 +131,7 @@ function downloadFile() {
             const reader = new FileReader();
             reader.addEventListener('load', (event) => {
                 const result = event.target.result;
-                var obj = document.getElementById("cryptText");
-                obj.value = result;
+                window.utilSetCryptText(result);
             });
             reader.readAsText(file);
         }
@@ -149,9 +158,8 @@ function downloadUrl() {
             }
         })
         .then(text => {
-            var obj = document.getElementById("cryptText");
             if (text) {
-                obj.value = text;
+                window.utilSetCryptText(text);
             } else {
                 alert("WARNING! no data found");
             }
@@ -164,9 +172,8 @@ function downloadUrl() {
 // Encrypt.
 function doEncrypt() {
     var obj1 = document.getElementById("rawPasswordId");
-    var obj2 = document.getElementById("cryptText");
     var pass = obj1.value.trim();
-    var text = obj2.value.trim();
+    var text = window.utilGetCryptText().trim();
     if (!pass) {
         alert("WARNING! no password specified");
         return;
@@ -181,16 +188,14 @@ function doEncrypt() {
         alert("WARNING! encrypt: (" + result.length + ") '" + result.substring(0, len) + "'..." );
         return;
     }
-    obj2.value = result;
-    doTextSize();
+    window.utilSetCryptText(result);
 }
 
 // Decrypt.
 function doDecrypt() {
     var obj1 = document.getElementById("rawPasswordId");
-    var obj2 = document.getElementById("cryptText");
     var pass = obj1.value.trim();
-    var text = obj2.value.trim();
+    var text = window.utilGetCryptText().trim();
     if (!pass) {
         alert("WARNING! no password specified");
         return;
@@ -205,46 +210,38 @@ function doDecrypt() {
         alert("WARNING! decrypt: (" + result.length + ") '" + result.substring(0, len) + "'...");
         return;
     }
-    obj2.value = result;
-    doTextSize();
+    window.utilSetCryptText(result);
 }
 
 // Clear the text.
 function clearText() {
-    var obj = document.getElementById("cryptText");
-    obj.value = "";
-    doTextSize();
+    window.utilSetCryptText("");
 }
 
 // Format the text if it is decrypted.
 function formatText() {
-    var obj = document.getElementById("cryptText");
-    var text = obj.value.trim();
+    var text = window.utilGetCryptText().trim();
     if (text.startsWith("-----")) {
         alert("WARNING! cannot format encrypted data");
     }
     var rec = JSON.parse(text);
     text = JSON.stringify(rec, null, 4);
-    obj.value = text;
-    doTextSize();
+    window.utilSetCryptText(text);
 }
 
 // Compress the text if it is decrypted.
 function compressText() {
-    var obj = document.getElementById("cryptText");
-    var text = obj.value.trim();
+    var text = window.utilGetCryptText().trim();
     if (text.startsWith("-----")) {
         alert("WARNING! cannot compress encrypted data");
     }
     var rec = JSON.parse(text);
     text = JSON.stringify(rec);
-    obj.value = text;
-    doTextSize();
+    window.utilSetCryptText(text);
 }
 
 // Set the example text.
 function exampleText() {
-    var obj = document.getElementById("cryptText");
     var rec = {
         "meta": {
             "atime": "",
@@ -328,16 +325,6 @@ function exampleText() {
             }
         }
     };
-    obj.value = JSON.stringify(rec, null, 4);
-    doTextSize();
-}
-
-function doTextSize() {
-    var obj1 = document.getElementById("cryptText");
-    var obj2 = document.getElementById("cryptTextSizeValue");
-    if (!!obj1.value) {
-        obj2.innerHTML = "(" + obj1.value.length + ")";
-    } else {
-        obj2.innerHTML = "(0)";
-    }
+    var text = JSON.stringify(rec, null, 4);
+    window.utilSetCryptText(text);
 }

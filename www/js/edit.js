@@ -192,7 +192,10 @@ function editMakePanel(record, rkey) {
     par.innerHTML = "NOTE: If the unique record name is changed, a new record is created when the 'Save' operation is run. The old record is not changed.";
     div.appendChild(par);
 
-    var fieldset1 = window.passwordCreateFieldset('editPassword', 'Generate Password', true);
+    var fieldset1 = window.passwordCreateFieldset('editPassword',
+                                                  'Generate Password',
+                                                  true,
+                                                  '');
     div.appendChild(document.createElement("P"));
     div.appendChild(fieldset1);
 }

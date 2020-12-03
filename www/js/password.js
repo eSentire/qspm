@@ -7,27 +7,30 @@ window.addEventListener("load", function(evt) {
     window.passwordCreateFieldset = passwordCreateFieldset;
 });
 
+// Password size.
+function passwordSize(input, szid, sstore) {
+    var obj = document.getElementById(szid);
+    obj.innerHTML = "(" + input.value.length + ")";
+    if (sstore) {
+        sessionStorage.setItem(sstore, input.value);
+    }
+}
+
 // Clear password.
-function passwordClear(id, szid) {
+function passwordClear(id, szid, sstore) {
     var obj = document.getElementById(id);
     obj.value = '';
     obj.focus();
     obj.setSelectionRange(obj.value.length,obj.value.length);
     obj.click();
     if (szid) {
-        passwordSize(obj, szid);
+        passwordSize(obj, szid, sstore);
     }
-}
-
-// Password size.
-function passwordSize(me, szid) {
-    var obj = document.getElementById(szid);
-    obj.innerHTML = "(" + me.value.length + ")";
 }
 
 // Generate a pseudo-random password.
 // The password length is somewhere between 16 and 31.
-function passwordGenerate(id, szid) {
+function passwordGenerate(id, szid, sstore) {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-!.";
     var size = alphabet.length;
     var result = '';
@@ -54,7 +57,7 @@ function passwordGenerate(id, szid) {
     var obj = document.getElementById(id);
     obj.value = result;
     if (szid) {
-        passwordSize(obj, szid);
+        passwordSize(obj, szid, sstore);
     }
 }
 
@@ -73,7 +76,8 @@ function passwordShowHide(me, id) {
 // Generate a password fieldset.
 // Used by add and edit.
 // show - if true show the plaintext password, if false hide it
-function passwordCreateFieldset(prefix, title, show) {
+// sstore - the session store key name for tab persistence
+function passwordCreateFieldset(prefix, title, show, sstore) {
     var fieldset = document.createElement("FIELDSET");
 
     var legend = document.createElement("LEGEND");
@@ -91,8 +95,14 @@ function passwordCreateFieldset(prefix, title, show) {
     } else {
         input.setAttribute("type", "password");
     }
-    input.setAttribute("onkeyup", "window.passwordSize(this,'" + sid + "')");
+    input.setAttribute("onkeyup", "window.passwordSize(this,'" + sid + "','" + sstore + "')");
     input.setAttribute("size", "40");
+    if (sstore) {
+        // If a session storage key was specified,
+        // use it to initialize the input.
+        let data = sessionStorage.getItem(sstore);
+        input.setAttribute("value", data);
+    }
     fieldset.appendChild(input);
 
     var nbsp = document.createElement("SPAN");
@@ -125,7 +135,7 @@ function passwordCreateFieldset(prefix, title, show) {
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("onclick", "window.passwordClear('" + pid + "','" + sid + "')");
+    button.setAttribute("onclick", "window.passwordClear('" + pid + "','" + sid + "','" + sstore + "')");
     button.innerHTML = "Clear";
     fieldset.appendChild(button);
 
@@ -135,7 +145,7 @@ function passwordCreateFieldset(prefix, title, show) {
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("onclick", "window.passwordGenerate('" + pid + "','" + sid + "')");
+    button.setAttribute("onclick", "window.passwordGenerate('" + pid + "','" + sid + "', '" + sstore + "')");
     button.setAttribute("title", "generate a [15..30] character, pseudo-random password");
     button.innerHTML = "Generate";
     fieldset.appendChild(button);
