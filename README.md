@@ -44,7 +44,7 @@ you want.
 
 ## Using
 This webapp is available directly from
-[https://jlinoff.github.io/qspm/](https://jlinoff.github.io/qspm/).
+[https://jlinoff.github.io/qspm](https://jlinoff.github.io/qspm).
 
 ## Installing
 This single page web app can be installed without building
