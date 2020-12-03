@@ -42,6 +42,10 @@ you want.
 > the user which is perfectly fine but it is sometimes difficult
 > to determine how well that service is protecting the data.
 
+## Using
+This webapp is available directly from
+[https://jlinoff.github.io/qspm/](https://jlinoff.github.io/qspm/).
+
 ## Installing
 This single page web app can be installed without building
 anything. Simply download the `qspm.zip` file from the release
@@ -67,11 +71,11 @@ The steps are:
 
 Here is an example:
 ```bash
-$ git clone git@git.eng.esentire.com:jlinoff/hackweek-20201116-qspm.git
+$ git clone https://github.com/eSentire/qspm.git
 .
 .
 
-$ cd hackweek-20201116-qspm
+$ cd qspm
 $ make serve
 ```
 
