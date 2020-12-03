@@ -38,6 +38,9 @@ jobs:
       - name: Setup Rust
         uses: actions/checkout@v2
 
+      - name: Install pandoc
+        uses: apt-get install haskell-platform
+
       - name: Build
         run: make
 
