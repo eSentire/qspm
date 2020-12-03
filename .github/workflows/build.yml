@@ -29,30 +29,38 @@ jobs:
       # job can access it
       - uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
+      - name: 'Set up Python 3.8'
         uses: actions/setup-python@v2
         with:
           # Semantic version range syntax or exact version of a Python
           # version.
           python-version: '3.8'
 
-      - name: Install pipenv
+      - name: 'Install pipenv'
         run: pip install pipenv
 
-      - name: Install zip and unzip
+      - name: 'Install zip and unzip'
         run: sudo apt-get install -y zip unzip
 
-      - name: Setup Rust
+      - name: 'Setup Rust'
         uses: actions/checkout@v2
 
-      - name: Install pandoc
+      - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
-      - name: Build
+      - name: 'Build'
         run: make
 
-      - name: Test
+      - name: 'Test'
         run: make test
 
-      - name: Webapp
+      - name: 'Build webapp'
         run: make webapp
+
+      - name: 'Upload webapp'
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'qspm.zip'
+          path: webapp/qspm.zip
+          # Maximum is 90 days for public repos.
+          retention-days: 30
