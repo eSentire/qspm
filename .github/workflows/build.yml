@@ -48,6 +48,12 @@ jobs:
       - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
+      - name: 'Setup'
+        # Builds the wabt tools needed for the build.
+        # It is actually part of the build but was
+        # broken out here to make the steps a bit shorter.
+        run: make setup
+
       - name: 'Build'
         run: make
 
