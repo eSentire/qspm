@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>qspm</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/records.css">
+    <script src="js/version.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/password.js"></script>
+    <script src="js/dropbox.js"></script>
+    <script src="js/help.js"></script>
+    <script src="js/raw.js"></script>
+    <script src="js/records.js"></script>
+    <script src="js/add.js"></script>
+    <script src="js/edit.js"></script>
+    <script src="js/tabs.js"></script>
+  </head>
+  <body>
+    <!-- Tab links -->
+    <div class="tab top-div">
+      <button class="tablinks" onclick="openTab(event, 'Raw')" id="defaultTab">Raw</button>
+      <button class="tablinks" onclick="openTab(event, 'Records')">Records</button>
+      <button class="tablinks" onclick="openTab(event, 'Add')">Add</button>
+      <button class="tablinks" onclick="openTab(event, 'Edit')">Edit</button>
+      <button class="tablinks" onclick="openTab(event, 'Help')">Help</button>
+    </div>
+
+    <div id="middle-div">&nbsp;</div>
+    
+    <!-- ************************************************************************ -->
+    <!-- ** Raw -->
+    <!-- ************************************************************************ -->
+    <div id="Raw" class="tabcontent">
+      <label>Upload/Download Options:</label>&nbsp;
+      <select id="ulOptionsSelect" onchange="window.doUlOptions()" selected="none">
+        <option value="dropbox">DropBox</option>
+        <option value="file">File</option>
+        <option value="none" selected="selected">None</option>
+        <option value="url">URL</option>
+      </select>
+      &nbsp;&nbsp;&nbsp;
+      <span id="algorithmSpan"></span>
+      <p></p>
+
+      <!-- Dropbox Upload/Download -->
+      <div id="rawUlDivDropBox" style="display:none">
+        <fieldset>
+          <legend>DropBox</legend>
+          <table>
+            <tbody>
+              <tr>
+                <td style="text-align:right">Token:</td>
+                <td>
+                  <input
+                    type="text"
+                    id="ulToken"
+                    placeholder="DropBox access token.."
+                    size="160">
+                </td>
+                <td>
+                  <button
+                    onclick="window.passwordShowHide(this,'ulToken')"
+                    type="button">Hide</button>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align:right">File:</td>
+                <td>
+                  <input
+                    type="text"
+                    id="ulFile"
+                    placeholder="File name.."
+                    size="80">
+                </td>
+                <td>&nbsp</td>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            type="button"
+            title="upload a file to DropBox"
+            id="ulUpload">Upload</button>
+          <button
+            type="button"
+            title="download a file from DropBox"
+            id="ulDownload">Download</button>
+          <button
+            type="button"
+            title="list the files currently stored in DropBox"
+            id="ulView">List Files</button>
+          <button
+            type="button"
+            title="clear the file list"
+            id="ulClear">Clear List</button>
+          <div id="ulListDiv"></div>
+        </fieldset>
+      </div>
+
+      <!-- File Download -->
+      <div id="rawUlDivFile" style="display:none">
+        <fieldset>
+          <legend>Download File</legend>
+          <button
+            type="button"
+            title="download a file from the local file system"
+            id="ulDownloadFile">Select File</button>
+          <span id="ulFileListDiv"></span>
+        </fieldset>
+      </div>
+
+      <!-- Url Download -->
+      <div id="rawUlDivUrl" style="display:none">
+        <fieldset>
+          <legend>Download URL</legend>
+          <input
+            type="text"
+            id="ulUrl"
+            placeholder="URL name.."
+            size="80">
+          <button
+            type="button"
+            title="download data from the CORS valid URL"
+            id="ulDownloadUrl">Download</button>
+          <span id="ulUrlListDiv"></span>
+        </fieldset>
+      </div>
+
+      <p></p>
+      <div id="rawPasswordFieldset"></div>
+
+      <p></p>
+      <fieldset>
+        <!-- Encrypt/Decrypt -->
+        <legend>Raw Data</legend>
+        <div style="width: 100%; min-width: 200px;">
+          <textarea rows="16" id="cryptText" style="width: 100%"></textarea>
+        </div>
+        <p></p>
+        <button
+          id="encryptButton"
+          title="encrypt the data in textarea using the wasm module"
+          type="button">Encrypt</button>
+        <button
+          id="decryptButton"
+          title="decrypt the data in textarea using the wasm module"
+          type="button">Decrypt</button>
+        <button
+          id="cryptFormat"
+          title="format the JSON to make it human readable"
+          type="button">Format</button>
+        <button
+          id="cryptCompress"
+          title="compress the JSON to save space"
+          type="button">Compress</button>
+        <button
+          id="cryptClear"
+          title="clear the textarea"
+          type="button">Clear</button>
+        <button
+          id="cryptExample"
+          title="insert example JSON for testing"
+          type="button">Example</button>
+        <button
+          id="cryptTextSelect"
+          onclick="window.utilSelectTextById('cryptText')"
+          title="select the contents of the textarea"
+          type="button">Select</button>
+        <button
+          id="cryptTextSize"
+          title="compute the size of the text"
+          type="button">Size</button>
+        &nbsp;&nbsp;
+        <label id="cryptTextSizeValue"></label>
+      </fieldset>
+    </div>
+
+    <!-- ************************************************************************ -->
+    <!-- ** Records -->
+    <!-- ************************************************************************ -->
+    <div id="Records" class="tabcontent">
+      <div id="recordsInsert">
+      </div>
+    </div>
+
+    <!-- ************************************************************************ -->
+    <!-- ** Add -->
+    <!-- ************************************************************************ -->
+    <div id="Add" class="tabcontent">
+      <div id="addInsert"></div>
+    </div>
+
+    <!-- ************************************************************************ -->
+    <!-- ** Edit -->
+    <!-- ************************************************************************ -->
+    <div id="Edit" class="tabcontent">
+      <div id="editInsert"></div>
+    </div>
+
+    <!-- ************************************************************************ -->
+    <!-- ** Help -->
+    <!-- ************************************************************************ -->
+    <div id="Help" class="tabcontent">
+      <p>
+        The official project page is here:
+        <a
+          href="https://git.eng.esentire.com/jlinoff/hackweek-20201116-qspm"
+          target="_blank">
+          https://git.eng.esentire.com/jlinoff/hackweek-20201116-qspm
+        </a>.
+      </p>
+      <p>
+        Version: <span id="version">?</span>
+      </p>
+      <p>
+        Click <a href="help/index.html" target="_blank">here</a> to
+        see the HTML help generated from the README markdown defined
+        on the Quantum Safe Password Manager (qspm) project page if
+        does not display properly below.
+      </p>
+      <div style="overflow:auto">
+        <object id="helpObject" style="width:100%" data="help/index.html">
+          object tag not supported.
+        </object>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/index.js"></script>
+  </body>
+
+</html>

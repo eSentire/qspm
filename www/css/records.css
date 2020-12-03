@@ -1,0 +1,58 @@
+/* styling for the user data records, it will vary for different types
+   of data */
+#main-records-search-div {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main-records-search {
+    width: 80%;
+    padding-left: 20px;
+}
+
+.main-record-div {
+    border: 1px solid #154360;
+    border-radius: 5px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #eaf2f8;
+    color: #154360;
+}
+
+.main-record-div table {
+    width: 100%;
+    background-color: #eaf2f8;
+    color: #154360;
+}
+
+.main-record-div table tbody tr td input {
+    background-color: #eaf2f8;
+    color: #154360;
+}
+
+.main-record-div table tbody tr td button {
+    background-color: #eaf2f8;
+    color: #154360;
+}
+
+.main-record-div table tbody tr:nth-child(1) td:nth-child(2) {
+    background-color: #154360;
+    color: #eaf2f8;
+    text-align: center;
+}
+
+.main-record-div table tbody tr td:nth-child(1) {
+    background-color: #154360;
+    color: #eaf2f8;
+    text-align: right;
+    width: 10%;
+}
+
+.main-record-div table tbody tr td:nth-child(3) {
+    background-color: #154360;
+    text-align: center;
+    width: 10%;
+}

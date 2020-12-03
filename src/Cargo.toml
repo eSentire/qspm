@@ -1,0 +1,20 @@
+[package]
+name = "qspm"
+version = "0.1.0"
+authors = ["jlinoff <jlinoff@acme.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aes-gcm = "0.8.0"
+aes-gcm-siv = "0.9.0"
+base64 = "0.13.0"
+chacha20poly1305 = "0.7.1"
+# block-padding = "0.2.1"
+num-format = "0.4.0"
+rand = "0.7.3"
+wasm-bindgen = "0.2.68"
+
+[lib]
+crate-type =["cdylib"]
