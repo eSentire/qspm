@@ -89,6 +89,12 @@ help:  ## This help message.
 	@echo "   WASMFILE := $(WASMFILE)"
 	@echo "   WEBAPP   := $(WEBAPP)"
 
+# Test.
+# At present this only tests the Rust code.
+.PHONY: test
+test: build  ## Run the test actions.
+	cd qspm && cargo test
+
 # Web app bundle.
 # This the collection of files that are used to install the
 # webapp.
