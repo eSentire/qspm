@@ -35,13 +35,6 @@ jobs:
       - name: Setup Rust
         uses: actions/checkout@v2
 
-      # This is somewhat annoying because it appears these actions cannot be tested w/o commiting the file.
-      - name: debug workflow 1
-        run: which bash
-        
-      - name: debug workflow 2
-        run: bash tools/setup.sh
-        
       - name: Build
         run: make
 
