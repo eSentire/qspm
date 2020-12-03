@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build
-        run: make
+        run: sudo make
 
       - name: Test
-        run: make test
+        run: sudo make test
