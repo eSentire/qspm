@@ -86,14 +86,6 @@ function passwordCreateFieldset(prefix, title, show) {
     var pid = prefix + "Id";
     var sid = prefix + "Size";
 
-    //var label = document.createElement("LABEL");
-    //label.innerHTML = "Password:"
-    //fieldset.appendChild(label);
-
-    //var nbsp = document.createElement("SPAN");
-    //nbsp.innerHTML = "&nbsp;";
-    //fieldset.appendChild(nbsp);
-
     var input = document.createElement("INPUT");
     input.setAttribute("id", pid);
     if (show) {
