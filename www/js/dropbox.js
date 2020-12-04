@@ -155,17 +155,51 @@ function dropboxListFiles() {
         }
     ).then(
         data => {
-            var ol = document.createElement("OL");
+            var tbl = document.createElement("TABLE");
+            var thead = document.createElement("THEAD");
+            var tr;
+            var td;
+            var style = "padding:3px;";
             var entries = data["entries"];
             for (var i=0; i<entries.length; i++) {
                 var fname = entries[i]["path_display"];
+                var mtime = entries[i]["client_modified"];
+                var size = entries[i]["size"];
                 fname = fname.substring(PATH.length);  // strip off the prefix
                 console.log("file: " + fname);
-                var li = document.createElement("LI");
-                li.innerHTML = fname;
-                ol.appendChild(li);
+
+                tr = document.createElement("TR");
+
+                // Index
+                td = document.createElement("TD");
+                td.setAttribute("align", "right");
+                td.setAttribute("style", style);
+                td.innerHTML = i + 1;
+                tr.appendChild(td)
+
+                // File name
+                td = document.createElement("TD");
+                td.setAttribute("style", style);
+                td.innerHTML = fname;
+                tr.appendChild(td)
+
+                // File size
+                td = document.createElement("TD");
+                td.setAttribute("align", "right");
+                td.setAttribute("style", style);
+                td.innerHTML = size;
+                tr.appendChild(td)
+
+                // Last modified
+                td = document.createElement("TD");
+                td.setAttribute("style", style);
+                td.innerHTML = mtime;
+                tr.appendChild(td)
+
+                thead.appendChild(tr);
             }
-            obj2.appendChild(ol);
+            tbl.appendChild(thead);
+            obj2.appendChild(tbl);
         }
     ).catch((error) => {
         alert("WARNING! list failed with code " + error);
