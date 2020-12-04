@@ -145,7 +145,7 @@ $(HELPFILE): README.md
 	@cp -r img/*.png $(dir $@)img/
 
 # Capture the VERSION for runtime use.
-$(VERFILE): VERSION
+$(VERFILE): VERSION Makefile
 	$(call hdr,"$(PROJECT)-$@")
 	@echo '// Automatically generated from VERSION.' > $@
 	@echo '/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/' >> $@
