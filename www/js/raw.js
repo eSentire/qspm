@@ -1,12 +1,8 @@
 // Raw tab services.
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
 window.addEventListener("load", function(_evt) {
-    document.getElementById('ulUpload').addEventListener('click', upload);
-    document.getElementById('ulDownload').addEventListener('click', download);
     document.getElementById('ulDownloadFile').addEventListener('click', downloadFile);
     document.getElementById('ulDownloadUrl').addEventListener('click', downloadUrl);
-    document.getElementById('ulView').addEventListener('click', listFiles);
-    document.getElementById('ulClear').addEventListener('click', listFilesClear);
     document.getElementById('encryptButton').addEventListener('click', doEncrypt);
     document.getElementById('decryptButton').addEventListener('click', doDecrypt);
     document.getElementById('cryptFormat').addEventListener('click', formatText);
@@ -67,51 +63,6 @@ function doUlOptions() {
         obj3.setAttribute("style", "display:none");
         obj4.setAttribute("style", "display:none");
     }
-}
-
-// Clear view files.
-function listFilesClear() {
-    window.dropboxClearList();
-}
-
-// View files.
-function listFiles() {
-    var token = document.getElementById('ulToken').value.trim();
-    if (!token) {
-        alert("WARNING! DropBox token was not specified");
-        return;
-    }
-    window.dropboxListFiles();
-}
-
-// Upload to the server.
-function upload() {
-    var token = document.getElementById('ulToken').value.trim();
-    var fname = document.getElementById('ulFile').value.trim();
-    if (!token) {
-        alert("WARNING! DropBox token was not specified");
-        return;
-    }
-    if (!fname) {
-        alert("WARNING! upload file was not specified");
-        return;
-    }
-    window.dropboxUpload();
-}
-
-// Download to the server.
-function download() {
-    var token = document.getElementById('ulToken').value.trim();
-    var fname = document.getElementById('ulFile').value.trim();
-    if (!token) {
-        alert("WARNING! DropBox token was not specified");
-        return;
-    }
-    if (!fname) {
-        alert("WARNING! download file was not specified, click on 'List Files' to see the files that are available");
-        return;
-    }
-    window.dropboxDownload();
 }
 
 // Download a file.

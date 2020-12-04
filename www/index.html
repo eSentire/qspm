@@ -28,7 +28,7 @@
     </div>
 
     <div id="middle-div">&nbsp;</div>
-    
+
     <!-- ************************************************************************ -->
     <!-- ** Raw -->
     <!-- ************************************************************************ -->
@@ -55,14 +55,16 @@
                 <td>
                   <input
                     type="text"
-                    id="ulToken"
+                    id="ulDropboxToken"
                     placeholder="DropBox access token.."
+                    onkeyup="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
                     size="160">
-                </td>
-                <td>
                   <button
-                    onclick="window.passwordShowHide(this,'ulToken')"
+                    onclick="passwordShowHide(this,'ulDropboxToken')"
                     type="button">Hide</button>
+                  <button
+                    onclick="utilButtonClearValue('ulDropboxToken','ssidDropboxToken')"
+                    type="button">Clear</button>
                 </td>
               </tr>
               <tr>
@@ -70,31 +72,34 @@
                 <td>
                   <input
                     type="text"
-                    id="ulFile"
+                    id="ulDropboxFile"
                     placeholder="File name.."
+                    onkeyup="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
                     size="80">
+                  <button
+                    onclick="utilButtonClearValue('ulDropboxFile','ssidDropboxFile')"
+                    type="button">Clear</button>
                 </td>
-                <td>&nbsp</td>
               </tr>
             </tbody>
           </table>
           <button
             type="button"
             title="upload a file to DropBox"
-            id="ulUpload">Upload</button>
+            id="ulDropboxUpload">Upload</button>
           <button
             type="button"
             title="download a file from DropBox"
-            id="ulDownload">Download</button>
+            id="ulDropboxDownload">Download</button>
           <button
             type="button"
             title="list the files currently stored in DropBox"
-            id="ulView">List Files</button>
+            id="ulDropboxView">List Files</button>
           <button
             type="button"
             title="clear the file list"
-            id="ulClear">Clear List</button>
-          <div id="ulListDiv"></div>
+            id="ulDropboxClear">Clear List</button>
+          <div id="ulDropboxFileListDiv"></div>
         </fieldset>
       </div>
 
@@ -164,7 +169,7 @@
           type="button">Example</button>
         <button
           id="cryptTextSelect"
-          onclick="window.utilSelectTextById('cryptText')"
+          onclick="utilSelectTextById('cryptText')"
           title="select the contents of the textarea"
           type="button">Select</button>
         <button

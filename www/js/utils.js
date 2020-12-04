@@ -1,5 +1,5 @@
 // General utilities.
-/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
+/*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "^_" }]*/
 window.addEventListener("load", function(_evt) {
     window.utilGetJsonRecords = utilGetJsonRecords;
     window.utilUpdateRecords = utilUpdateRecords;
@@ -12,7 +12,47 @@ window.addEventListener("load", function(_evt) {
     window.utilSetCryptText = utilSetCryptText;
     window.utilGetCryptText = utilGetCryptText;
     window.utilSetCryptTextSize = utilSetCryptTextSize;
+    window.utilAssignSessionStoreValue = utilAssignSessionStoreValue;
 });
+
+// Update a session store value.
+function utilSetSessionKey(oid, ssid) {
+    var obj = document.getElementById(oid);
+    if (obj) {
+        sessionStorage.setItem(ssid, obj.value);
+    } else {
+        alert("WARNING! internal error: utilSetSessionKey: " + oid + " not found");
+    }
+}
+
+// Set session value.
+function utilAssignSessionStoreValue(oid, ssid) {
+    var text = sessionStorage.getItem(ssid);
+    if (text) {
+        var obj = document.getElementById(oid);
+        if (obj) {
+            obj.value = text
+        } else {
+            alert("WARNING! internal error: utilAssignSessionStoreValue: element not defined: " + oid + " for " + ssid);
+        }
+    }
+}
+
+// Button onclick to set an input value.
+function utilButtonSetValue(oid, text, ssid) {
+    var obj = document.getElementById(oid);
+    if (obj) {
+        obj.value = text;
+        sessionStorage.setItem(ssid, text);
+    } else {
+        alert("WARNING! internal error: utilButtonSetValue: " + oid + " not found");
+    }
+}
+
+// Button onclick to clear an input value.
+function utilButtonClearValue(oid, ssid) {
+    utilButtonSetValue(oid, '', ssid);
+}
 
 // Set the crypt text.
 // This is a single entry point that allows session
