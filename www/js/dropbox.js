@@ -6,6 +6,8 @@ window.addEventListener("load", function(_evt) {
     document.getElementById('ulDropboxView').addEventListener('click', dropboxListFiles);
     document.getElementById('ulDropboxClear').addEventListener('click', dropboxClearList);
 
+    window.dropboxSetFileName = dropboxSetFileName;
+
     // Initialize the text properly after a refresh.
     window.utilAssignSessionStoreValue('ulDropboxToken', 'ssidDropboxToken');
     window.utilAssignSessionStoreValue('ulDropboxFile', 'ssidDropboxFile');
@@ -122,6 +124,12 @@ function dropboxDownload() {
     });
 }
 
+// Set the dropbox file name.
+function dropboxSetFileName(name) {
+    var obj = document.getElementById('ulDropboxFile');
+    obj.value = name;
+}
+
 // View the available files.
 function dropboxListFiles() {
     var obj1 = document.getElementById('ulDropboxToken');
@@ -156,9 +164,14 @@ function dropboxListFiles() {
     ).then(
         data => {
             var tbl = document.createElement("TABLE");
+            var caption = document.createElement("CAPTION");
+            caption.innerHTML = "<b>Downloadable Files</b>";
+            tbl.appendChild(caption);
+
             var thead = document.createElement("THEAD");
             var tr;
             var td;
+            var button;
             var style = "padding:3px;";
             var entries = data["entries"];
             for (var i=0; i<entries.length; i++) {
@@ -180,7 +193,11 @@ function dropboxListFiles() {
                 // File name
                 td = document.createElement("TD");
                 td.setAttribute("style", style);
-                td.innerHTML = fname;
+                button = document.createElement("BUTTON");
+                button.setAttribute("type", "button");
+                button.setAttribute("onclick", "window.dropboxSetFileName('" + fname + "')");
+                button.innerHTML = fname;
+                td.appendChild(button);
                 tr.appendChild(td)
 
                 // File size
