@@ -30,13 +30,13 @@ function initRaw() {
         var fieldset = window.passwordCreateFieldset('rawPassword',
                                                      'Master Password',
                                                      false,
-                                                     'rawPasswordValue');
+                                                     'ssidMasterPasswordValue');
         div.innerHTML = "";  // clear the DOM.
         div.appendChild(fieldset)
     }
 
     // Initialize the text properly after a refresh.
-    let text = sessionStorage.getItem('cryptText');
+    let text = sessionStorage.getItem('ssidCryptText');
     if (text) {
         window.utilSetCryptText(text);
     } else {

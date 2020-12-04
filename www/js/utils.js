@@ -20,7 +20,7 @@ window.addEventListener("load", function(_evt) {
 function utilSetCryptText(text) {
     var obj = document.getElementById('cryptText');
     obj.value = text;
-    sessionStorage.setItem('cryptText', text);
+    sessionStorage.setItem('ssidCryptText', text);
     utilSetCryptTextSize();
 }
 
