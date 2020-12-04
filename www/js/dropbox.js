@@ -1,10 +1,10 @@
 // Dropbox utilities.
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
 window.addEventListener("load", function(_evt) {
-    window.dropboxUpload = dropboxUpload;
-    window.dropboxDownload = dropboxDownload;
-    window.dropboxListFiles = dropboxListFiles;
-    window.dropboxClearList = dropboxClearList;
+    document.getElementById('ulDropboxUpload').addEventListener('click', dropboxUpload);
+    document.getElementById('ulDropboxDownload').addEventListener('click', dropboxDownload);
+    document.getElementById('ulDropboxView').addEventListener('click', dropboxListFiles);
+    document.getElementById('ulDropboxClear').addEventListener('click', dropboxClearList);
 });
 
 const PATH = "/qspm/";
@@ -12,9 +12,9 @@ const PATH = "/qspm/";
 // Upload to the server.
 function dropboxUpload() {
     dropboxClearList();
-    
-    var obj1 = document.getElementById('ulToken');
-    var obj2 = document.getElementById('ulFile');
+
+    var obj1 = document.getElementById('ulDropboxToken');
+    var obj2 = document.getElementById('ulDropboxFile');
 
     var text = window.utilGetCryptText().trim();
     if (!text.startsWith(window.utilGetEncryptedPrefix())) {
@@ -37,6 +37,17 @@ function dropboxUpload() {
                    "Dropbox-API-Arg": JSON.stringify(dbapi),
                    "Authorization": bearer};
 
+    // Check.
+    if (!bearer) {
+        alert("WARNING! DropBox token was not specified");
+        return;
+    }
+    if (!fname) {
+        alert("WARNING! upload file was not specified");
+        return;
+    }
+
+    // Fetch.
     fetch(url, {
         method : "POST",
         headers: headers,
@@ -62,8 +73,8 @@ function dropboxUpload() {
 function dropboxDownload() {
     dropboxClearList();
 
-    var obj1 = document.getElementById('ulToken');
-    var obj2 = document.getElementById('ulFile');
+    var obj1 = document.getElementById('ulDropboxToken');
+    var obj2 = document.getElementById('ulDropboxFile');
 
     var url = "https://content.dropboxapi.com/2/files/download";
     var bearer = "Bearer " + obj1.value.trim();
@@ -73,6 +84,17 @@ function dropboxDownload() {
     var headers = {"Dropbox-API-Arg": JSON.stringify(dbapi),
                    "Authorization": bearer};
 
+    // Check.
+    if (!bearer) {
+        alert("WARNING! DropBox token was not specified");
+        return;
+    }
+    if (!fname) {
+        alert("WARNING! upload file was not specified");
+        return;
+    }
+
+    // Fetch.
     fetch(url, {
         method : "POST",
         headers: headers
@@ -98,8 +120,8 @@ function dropboxDownload() {
 
 // View the available files.
 function dropboxListFiles() {
-    var obj1 = document.getElementById('ulToken');
-    var obj2 = document.getElementById('ulListDiv');
+    var obj1 = document.getElementById('ulDropboxToken');
+    var obj2 = document.getElementById('ulDropboxFileListDiv');
     obj2.innerHTML = "";
 
     var url = "https://api.dropboxapi.com/2/files/list_folder";
@@ -108,6 +130,13 @@ function dropboxListFiles() {
     var headers = {"Content-Type": "application/json",
                    "Authorization": bearer};
 
+    // Check.
+    if (!bearer) {
+        alert("WARNING! DropBox token was not specified");
+        return;
+    }
+
+    // Fetch.
     fetch(url, {
         method : "POST",
         headers: headers,
@@ -142,6 +171,6 @@ function dropboxListFiles() {
 
 // Clear view files.
 function dropboxClearList() {
-    var obj3 = document.getElementById('ulListDiv');
+    var obj3 = document.getElementById('ulDropboxFileListDiv');
     obj3.innerHTML = "";
 }

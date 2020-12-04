@@ -14,6 +14,22 @@ window.addEventListener("load", function(_evt) {
     window.utilSetCryptTextSize = utilSetCryptTextSize;
 });
 
+// Button onclick to set an input value.
+function utilButtonSetValue(oid, text, ssid) {
+    var obj = document.getElementById('cryptText');
+    if (obj) {
+        obj.value = text;
+        sessionStorage.setItem(ssid, text);
+    } else {
+        alert("WARNING! internal error: " + oid + " not found");
+    }
+}
+
+// Button onclick to clear an input value.
+function utilButtonClearValue(oid, ssid) {
+    utilButtonSetValue(oid, '', ssid);
+}
+
 // Set the crypt text.
 // This is a single entry point that allows session
 // storage to be used.
