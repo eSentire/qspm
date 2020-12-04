@@ -5,6 +5,10 @@ window.addEventListener("load", function(_evt) {
     document.getElementById('ulDropboxDownload').addEventListener('click', dropboxDownload);
     document.getElementById('ulDropboxView').addEventListener('click', dropboxListFiles);
     document.getElementById('ulDropboxClear').addEventListener('click', dropboxClearList);
+
+    // Initialize the text properly after a refresh.
+    window.utilAssignSessionStoreValue('ulDropboxToken', 'ssidDropboxToken');
+    window.utilAssignSessionStoreValue('ulDropboxFile', 'ssidDropboxFile');
 });
 
 const PATH = "/qspm/";

@@ -102,7 +102,9 @@ function passwordCreateFieldset(prefix, title, show, sstore) {
         // If a session storage key was specified,
         // use it to initialize the input.
         let data = sessionStorage.getItem(sstore);
-        input.setAttribute("value", data);
+        if (data) {
+            input.setAttribute("value", data);
+        }
     }
     fieldset.appendChild(input);
 
