@@ -73,6 +73,7 @@
                     id="ulDropboxToken"
                     placeholder="DropBox access token.."
                     onkeyup="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
+                    onpaste="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
                     size="160">
                   <button
                     onclick="passwordShowHide(this,'ulDropboxToken')"
@@ -90,6 +91,7 @@
                     id="ulDropboxFile"
                     placeholder="File name.."
                     onkeyup="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
+                    onpaste="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
                     size="80">
                   <button
                     onclick="utilButtonClearValue('ulDropboxFile','ssidDropboxFile')"

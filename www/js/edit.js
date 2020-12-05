@@ -20,6 +20,7 @@ function editSearch() {
     sch.setAttribute("id", "main-edit-search");
     sch.setAttribute("size", "100");
     sch.setAttribute("onkeyup", "editSearchRecords()");
+    sch.setAttribute("onpaste", "editSearchRecords()");
     sch.setAttribute("placeholder", "Case insensitive search for the record to edit..");
     div.appendChild(sch);
 

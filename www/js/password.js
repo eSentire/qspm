@@ -97,6 +97,7 @@ function passwordCreateFieldset(prefix, title, show, sstore) {
         input.setAttribute("type", "password");
     }
     input.setAttribute("onkeyup", "window.passwordSize(this,'" + sid + "','" + sstore + "')");
+    input.setAttribute("onpaste", "window.passwordSize(this,'" + sid + "','" + sstore + "')");
     input.setAttribute("size", "40");
     if (sstore) {
         // If a session storage key was specified,

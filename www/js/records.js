@@ -25,6 +25,7 @@ function doRecords() {
     sch.setAttribute("type", "text");
     sch.setAttribute("id", "main-records-search");
     sch.setAttribute("onkeyup", "searchRecords()");
+    sch.setAttribute("onpaste", "searchRecords()");
     sch.setAttribute("placeholder", "Case insensitive search for records..");
     sch.setAttribute("value", window.recordsSearch);
     div.appendChild(sch);
