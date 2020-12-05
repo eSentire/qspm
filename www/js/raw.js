@@ -10,7 +10,7 @@ window.addEventListener("load", function(_evt) {
     document.getElementById('cryptClear').addEventListener('click', clearText);
     document.getElementById('cryptExample').addEventListener('click', exampleText);
     document.getElementById('cryptTextSize').addEventListener('click', window.utilSetCryptTextSize);
-    document.getElementById("defaultTab").click();
+    document.getElementById("tabRaw").click();
     window.doDecrypt = doDecrypt;
     window.doEncrypt = doEncrypt;
     window.doUlOptions = doUlOptions;

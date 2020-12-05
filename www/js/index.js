@@ -8,6 +8,7 @@ import {
     decrypt,
     default as init
 } from './qspm.js';
+
 async function load_wasm() {
     await init('./wasm/qspm_bg.wasm');
     window.wasm = {
@@ -18,13 +19,36 @@ async function load_wasm() {
         fct_decrypt: decrypt,                        // t = window.wasm.decrypt(a, password, c);
         algorithm: get_algorithm(0)
     };
-    algorithmCreateSelectBox();
-    window.doAlgorithmSet = doAlgorithmSet;
+    initFinal();
 }
 
+// On load.
 window.addEventListener("load", function(_evt) {
     load_wasm();
 });
+
+// This must be done after the async load is completed.
+function initFinal() {
+    algorithmCreateSelectBox();
+    window.doAlgorithmSet = doAlgorithmSet;
+
+    // Make sure that "None" is selected in the ulOptions.
+    setTimeout(function() {
+        document.getElementById('ulOptionsSelect').selectedIndex = 2; // none
+    }, 0.1);
+
+    // If master password and text are not zero,
+    // start on the records tab.
+    var mp = sessionStorage.getItem('ssidMasterPasswordValue');
+    if (mp) {
+        var txt = sessionStorage.getItem('ssidCryptText');
+        if (txt) {
+            setTimeout(function() {
+                document.getElementById('tabRecords').click();
+            }, 0.1);
+        }
+    }
+}
 
 // Populate the select box.
 function algorithmCreateSelectBox() {
