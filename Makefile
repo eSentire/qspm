@@ -91,8 +91,13 @@ help:  ## This help message.
 
 # Test.
 # At present this only tests the Rust code.
+# Kind of wish zsh had timeout...
 .PHONY: test
-test: build  ## Run the test actions.
+test: build test-rust  ## Run the test actions.
+
+.PHONY: test-rust
+test-rust:
+	$(call hdr,"$(PROJECT)-$@")
 	cd qspm && cargo test
 
 # Web app bundle.
