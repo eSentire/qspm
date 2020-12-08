@@ -37,12 +37,9 @@ jobs:
           python-version: '3.8'
 
       - name: 'Install pipenv'
-        run: pip install pipenv
-
-      - name: 'Setup pipenv'
-        # This is also done in the Makefile but i broke it
-        # here for visibility.
-        run: pipenv install -d
+        run: |
+          pip install pipenv
+          pipenv install -d
 
       - name: 'Install zip and unzip'
         run: sudo apt-get install -y zip unzip
@@ -50,14 +47,11 @@ jobs:
       - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
-      - name: 'Install chrome packages'
-        run: sudo apt install -y gdebi-core wget
-
-      - name: 'Download latest chrome'
-        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
       - name: 'Install chrome'
-        run: sudo gdebi -n google-chrome-stable_current_amd64.deb
+        run: |
+          sudo apt install -y gdebi-core wget
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo gdebi -n google-chrome-stable_current_amd64.deb
 
       - name: 'Make setup'
         # Builds the wabt tools needed for the build.
