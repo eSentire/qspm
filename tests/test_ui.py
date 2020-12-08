@@ -7,15 +7,20 @@ import time
 import pytest
 from selenium.common.exceptions import UnexpectedAlertPresentException
 
-
+# The test port must be different than the production port.
 PORT = int(os.environ.get('PORT', 8006))
+
+# Local host cannot be used on all platforms.
+# For example, in the github workflow actions, the
+# ubuntu server does not to localhost mapping.
+LOCALHOST = '127.0.0.1'
 
 
 def test_tabs(py):
     '''
     Simple test to check the tabs.
     '''
-    py.visit('http://localhost:' + str(PORT))
+    py.visit(f'http://{LOCALHOST}:{PORT}')
     assert py.find('#tabRaw')
     assert py.find('#tabRecords')
     assert py.find('#tabAdd')
@@ -40,7 +45,7 @@ def test_raw_uloptions(py):
     '''
     Verify that the upload/download options select box works.
     '''
-    py.visit('http://localhost:' + str(PORT))
+    py.visit(f'http://{LOCALHOST}:{PORT}')
     py.get('#ulOptionsSelect').select('dropbox')
     py.get('#ulOptionsSelect').select('file')
     py.get('#ulOptionsSelect').select('none')
@@ -56,7 +61,7 @@ def test_raw_example(py):
     Test that the example can be created, encrypted, decrypted,
     compressed and formatted.
     '''
-    py.visit('http://localhost:' + str(PORT))
+    py.visit(f'http://{LOCALHOST}:{PORT}')
 
     # Make sure that the example button generates what we expect.
     assert py.find('#tabRaw')
