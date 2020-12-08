@@ -48,14 +48,17 @@ jobs:
       - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
-      - name: 'Install packages'
-        run: sudo apt install -y gdebi-core wget
+      - name: 'Install firefox'
+        run: sudo apt install -y firefox
 
-      - name: 'Download latest chrome'
-        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
-      - name: 'Install chrome'
-        run: sudo gdebi -n google-chrome-stable_current_amd64.deb
+#      - name: 'Install chrome packages'
+#        run: sudo apt install -y gdebi-core wget
+#
+#      - name: 'Download latest chrome'
+#        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#
+#      - name: 'Install chrome'
+#        run: sudo gdebi -n google-chrome-stable_current_amd64.deb
 
       - name: 'Setup pipenv'
         # This is also done in the Makefile but i broke it
@@ -72,7 +75,7 @@ jobs:
         run: make
 
       - name: 'Make Test'
-        run: make USE_FQDN=1 test
+        run: make USE_FQDN=0 test
 
       - name: 'Make webapp'
         run: make webapp

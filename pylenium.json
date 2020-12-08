@@ -1,17 +1,10 @@
 {
     "driver": {
-        "browser": "chrome",
+        "browser": "firefox",
         "remote_url": "",
         "wait_time": 10,
         "page_load_wait_time": 0,
-        "options": [
-            "headless",
-            "disable-infobars",
-            "--disable-extensions",
-            "--disable-dev-shm-usage",
-            "--disable-setuid-sandbox",
-            "--no-sandbox"
-        ],
+        "options": ["-headless"],
         "capabilities": {},
         "version": "latest",
         "experimental_options": null,
