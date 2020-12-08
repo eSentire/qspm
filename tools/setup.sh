@@ -78,7 +78,7 @@ wasm2wat --version
 { set +x; } 2> /dev/null
 
 # Update rust to include Web Assembly components.
-_info "installing web assemply components"
+_info "installing web assembly components"
 set -x
 time rustup update
 time rustup component add rls rust-analysis rust-src
