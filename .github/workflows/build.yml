@@ -39,31 +39,25 @@ jobs:
       - name: 'Install pipenv'
         run: pip install pipenv
 
-      - name: 'Install zip and unzip'
-        run: sudo apt-get install -y zip unzip
-
-      - name: 'Setup Rust'
-        uses: actions/checkout@v2
-
-      - name: 'Install pandoc'
-        run: sudo apt-get install -y pandoc
-
-      - name: 'Install firefox'
-        run: sudo apt install -y firefox
-
-#      - name: 'Install chrome packages'
-#        run: sudo apt install -y gdebi-core wget
-#
-#      - name: 'Download latest chrome'
-#        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#
-#      - name: 'Install chrome'
-#        run: sudo gdebi -n google-chrome-stable_current_amd64.deb
-
       - name: 'Setup pipenv'
         # This is also done in the Makefile but i broke it
         # here for visibility.
         run: pipenv install -d
+
+      - name: 'Install zip and unzip'
+        run: sudo apt-get install -y zip unzip
+
+      - name: 'Install pandoc'
+        run: sudo apt-get install -y pandoc
+
+      - name: 'Install chrome packages'
+        run: sudo apt install -y gdebi-core wget
+
+      - name: 'Download latest chrome'
+        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+      - name: 'Install chrome'
+        run: sudo gdebi -n google-chrome-stable_current_amd64.deb
 
       - name: 'Make setup'
         # Builds the wabt tools needed for the build.

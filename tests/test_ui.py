@@ -11,14 +11,8 @@ import socket
 # The test port must be different than the production port.
 PORT = int(os.environ.get('PORT', 8006))
 
-# Local host cannot be used on all platforms.
-# For example, in the github workflow actions, the
-# ubuntu server does not to localhost mapping.
-###LOCALHOST = socket.getfqdn()
-OCALHOST = 'localhost'
-LOCALHOST = '127.0.0.1'
-if int(os.environ.get('USE_FQDN', '0')):
-    LOCALHOST = socket.getfqdn()
+# The localhost.
+LOCALHOST = 'localhost'
 
 # Define the URL used for the tests.
 URL = f'http://{LOCALHOST}:{PORT}'

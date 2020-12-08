@@ -28,9 +28,6 @@ WEBSRCS  := $(shell find www -type f)
 WEBAPP   ?= $(PROJECT).zip
 ZIP      ?= zip
 
-# Test variables.
-USE_FQDN ?= 0
-
 # Macros
 define hdr
 	@printf '\x1b[35;1m'
@@ -111,7 +108,7 @@ test-webapp:
 	@-ps auxww | egrep 'PORT=8006|server.py 8006' | awk '{print $$2}' | xargs -L1 -I{} kill -9 {} 2>/dev/null
 	( $(MAKE) PORT=8006 serve 1>/dev/null 2>/dev/null & )
 	sleep 2
-	USE_FQDN=$(USE_FQDN) pipenv run python -m pytest tests/test_ui.py
+	pipenv run python -m pytest tests/test_ui.py
 	@-ps auxww | egrep 'PORT=8006|server.py 8006' | awk '{print $$2}' | xargs -L1 -I{} kill -9 {} 2>/dev/null
 
 # Web app bundle.

@@ -8,7 +8,7 @@ mypy = "==0.790"
 pylint = "==2.6.0"
 pytest = "==6.1.2"
 pytest-cov = "==2.10.1"
-pyleniumio = "1.11.2"
+pyleniumio = "*"
 
 [packages]
 pipupgrade = "==1.7.3"
