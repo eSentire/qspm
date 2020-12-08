@@ -26,7 +26,6 @@ def main():
         socketserver.TCPServer.allow_reuse_address = True
         with socketserver.TCPServer(("", port), handler) as httpd:
             httpd.allow_reuse_address = True
-            print("serving at port", port)
             httpd.serve_forever()
     except KeyboardInterrupt:
         print('\n^C interrupt\nStopped')

@@ -143,7 +143,7 @@ build: .setup $(VERFILE) $(WASM2WAT) $(WATFILE) $(JSFILE) $(HELPFILE) $(IMGFILES
 serve: build  ## Run the server.
 	$(call hdr,"$(PROJECT)-$@")
 	@echo "Serving $@ at http://localhost: $(PORT) exit via ^C."
-	cd www && pipenv run ../tools/server.py $(PORT)
+	cd www && pipenv run python ../tools/server.py $(PORT)
 
 # Image files.
 www/help/img/%.png : img/%.png
