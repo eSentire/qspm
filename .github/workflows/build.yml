@@ -48,6 +48,11 @@ jobs:
       - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
+      - name: 'Setup pipenv'
+        # This is also done in the Makefile but i broke it
+        # here for visibility.
+        pipenv install -d
+
       - name: 'Setup'
         # Builds the wabt tools needed for the build.
         # It is actually part of the build but was
