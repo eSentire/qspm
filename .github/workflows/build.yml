@@ -72,7 +72,7 @@ jobs:
         run: make
 
       - name: 'Make Test'
-        run: make test
+        run: make USE_FQDN=1 test
 
       - name: 'Make webapp'
         run: make webapp

@@ -15,9 +15,12 @@ PORT = int(os.environ.get('PORT', 8006))
 # For example, in the github workflow actions, the
 # ubuntu server does not to localhost mapping.
 ###LOCALHOST = socket.getfqdn()
-#LOCALHOST = '127.0.0.1'
-LOCALHOST = '0.0.0.0'
+LOCALHOST = '127.0.0.1'
+if int(os.environ.get('USE_FQDN', '0')):
+    LOCALHOST = socket.getfqdn()
+#LOCALHOST = '0.0.0.0'
 
+# Define the URL used for the tests.
 URL = f'http://{LOCALHOST}:{PORT}'
 
 
