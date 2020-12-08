@@ -1,11 +1,12 @@
 '''
 Test the UI using pylenium.
 '''
+import inspect
 import os
-import time
+import socket
 
-import pytest
-from selenium.common.exceptions import UnexpectedAlertPresentException
+##import pytest  # for pytest.raises()
+##from selenium.common.exceptions import UnexpectedAlertPresentException
 
 # The test port must be different than the production port.
 PORT = int(os.environ.get('PORT', 8006))
@@ -13,14 +14,29 @@ PORT = int(os.environ.get('PORT', 8006))
 # Local host cannot be used on all platforms.
 # For example, in the github workflow actions, the
 # ubuntu server does not to localhost mapping.
-LOCALHOST = '127.0.0.1'
+###LOCALHOST = socket.getfqdn()
+#LOCALHOST = '127.0.0.1'
+LOCALHOST = '0.0.0.0'
+
+URL = f'http://{LOCALHOST}:{PORT}'
 
 
-def test_tabs(py):
+def debug(msg: str, level: int = 1):
+    '''
+    Print a debug message so that it can be seen.
+    '''
+    lineno = inspect.stack()[level].lineno
+    fname = os.path.basename(inspect.stack()[level].filename)
+    print(f'\x1b[35mDEBUG:{fname}:{lineno}: {msg}\x1b[0m')
+
+
+def test_tabs(py):  # pylint: disable=invalid-name
     '''
     Simple test to check the tabs.
     '''
-    py.visit(f'http://{LOCALHOST}:{PORT}')
+    debug(f'URL: {URL}')
+    py.visit(URL)
+
     assert py.find('#tabRaw')
     assert py.find('#tabRecords')
     assert py.find('#tabAdd')
@@ -41,11 +57,12 @@ def test_tabs(py):
     #py.find('#tabRaw')[0].click()
 
 
-def test_raw_uloptions(py):
+def test_raw_uloptions(py):  # pylint: disable=invalid-name
     '''
     Verify that the upload/download options select box works.
     '''
-    py.visit(f'http://{LOCALHOST}:{PORT}')
+    debug(f'URL: {URL}')
+    py.visit(URL)
     py.get('#ulOptionsSelect').select('dropbox')
     py.get('#ulOptionsSelect').select('file')
     py.get('#ulOptionsSelect').select('none')
@@ -56,12 +73,13 @@ def test_raw_uloptions(py):
     py.get('#algorithmSelect').select('qspm-aws-256-gcm-siv')
 
 
-def test_raw_example(py):
+def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements
     '''
     Test that the example can be created, encrypted, decrypted,
     compressed and formatted.
     '''
-    py.visit(f'http://{LOCALHOST}:{PORT}')
+    debug(f'URL: {URL}')
+    py.visit(URL)
 
     # Make sure that the example button generates what we expect.
     assert py.find('#tabRaw')
@@ -76,7 +94,7 @@ def test_raw_example(py):
     buttons = py.get('#rawPasswordFieldset').find('button')
     for button in buttons:
         html = button.get_property('innerHTML')
-        print(f'button: "{html}"')
+        debug(f'button: "{html}"')
         if html in ['Generate']:
             generate = button
         elif html in ['Show']:
@@ -101,51 +119,51 @@ def test_raw_example(py):
     inp = py.find('#rawPasswordId')[0]
     text = inp.get_attribute('value')
     assert len(text) > 0
-    print(f'password: {text}')
+    debug(f'password: {text}')
 
     # Verify that is can be shown and hidden.
-    assert 'Show' == show.get_property('innerHTML')
+    assert show.get_property('innerHTML') == 'Show'
     show.click()
-    assert 'Hide' == show.get_property('innerHTML')
+    assert show.get_property('innerHTML') == 'Hide'
     show.click()
-    assert 'Show' == show.get_property('innerHTML')
+    assert show.get_property('innerHTML') == 'Show'
 
     # Encrypt/decrypt with the different algorithms.
     algorithms = ['qspm-aws-256-gcm', 'qspm-aws-256-gcm-siv']
     for algorithm in algorithms:
-        print(f'algorithm: {algorithm}')
+        debug(f'algorithm: {algorithm}')
         py.get('#algorithmSelect').select(algorithm)
 
         # Encrypt.
         py.find('#encryptButton')[0].click()
         text = py.get('#cryptText').get_attribute('value')
-        print('encrypt:\n' + text)
+        debug('encrypt:\n' + text)
         assert '---------- qspm'  in text
 
         # Decrypt.
         py.find('#decryptButton')[0].click()
         assert len(text) > 0
         text = py.get('#cryptText').get_attribute('value')
-        print('decrypt:\n' + text)
+        debug('decrypt:\n' + text)
         assert '---------- qspm'  not in text
 
     # Compress.
     py.find('#cryptCompress')[0].click()
     assert len(text) > 0
     text = py.get('#cryptText').get_attribute('value')
-    print('compress:\n' + text)
+    debug('compress:\n' + text)
     assert '{"meta"'  in text
 
     # Format.
     py.find('#cryptFormat')[0].click()
     assert len(text) > 0
     text = py.get('#cryptText').get_attribute('value')
-    print('format:\n' + text)
+    debug('format:\n' + text)
     assert '    "meta"'  in text
 
     # Size.
     py.find('#cryptTextSize')[0].click()
     assert len(text) > 0
     text = py.get('#cryptTextSizeValue').get_property('innerHTML').strip()
-    print('size:\n' + text)
+    debug('size:\n' + text)
     assert text == '(2916)'
