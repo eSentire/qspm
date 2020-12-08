@@ -55,7 +55,7 @@ jobs:
         run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
       - name: 'Install chrome'
-        run: sudo gdebi -y google-chrome-stable_current_amd64.deb
+        run: sudo gdebi google-chrome-stable_current_amd64.deb
 
       - name: 'Setup pipenv'
         # This is also done in the Makefile but i broke it
