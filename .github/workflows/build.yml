@@ -49,13 +49,13 @@ jobs:
         run: sudo apt-get install -y pandoc
 
       - name: 'Install packages'
-        run: sudo apt install gdebi-core wget
+        run: sudo apt -y install gdebi-core wget
 
       - name: 'Download latest chrome'
         run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
       - name: 'Install chrome'
-        run: sudo gdebi google-chrome-stable_current_amd64.deb
+        run: sudo gdebi -y google-chrome-stable_current_amd64.deb
 
       - name: 'Setup pipenv'
         # This is also done in the Makefile but i broke it
