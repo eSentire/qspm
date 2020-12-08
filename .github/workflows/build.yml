@@ -62,19 +62,19 @@ jobs:
         # here for visibility.
         run: pipenv install -d
 
-      - name: 'Setup'
+      - name: 'Make setup'
         # Builds the wabt tools needed for the build.
         # It is actually part of the build but was
         # broken out here to make the steps a bit shorter.
         run: make setup
 
-      - name: 'Build'
+      - name: 'Make build'
         run: make
 
-      - name: 'Test'
+      - name: 'Make Test'
         run: make test
 
-      - name: 'Build webapp'
+      - name: 'Make webapp'
         run: make webapp
 
       - name: 'Upload webapp'
