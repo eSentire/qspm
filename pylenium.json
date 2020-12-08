@@ -9,6 +9,7 @@
             "disable-infobars",
             "--disable-extensions",
             "--disable-dev-shm-usage",
+            "--disable-setuid-sandbox",
             "--no-sandbox"
         ],
         "capabilities": {},
