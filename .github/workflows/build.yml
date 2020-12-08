@@ -53,6 +53,10 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo gdebi -n google-chrome-stable_current_amd64.deb
 
+      - name: 'Debug'
+        run: |
+          ls -l tools
+
       - name: 'Make setup'
         # Builds the wabt tools needed for the build.
         # It is actually part of the build but was
@@ -63,7 +67,7 @@ jobs:
         run: make
 
       - name: 'Make Test'
-        run: make USE_FQDN=0 test
+        run: make test
 
       - name: 'Make webapp'
         run: make webapp
