@@ -51,7 +51,7 @@ jobs:
       - name: 'Setup pipenv'
         # This is also done in the Makefile but i broke it
         # here for visibility.
-        pipenv install -d
+        run: pipenv install -d
 
       - name: 'Setup'
         # Builds the wabt tools needed for the build.
