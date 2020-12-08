@@ -93,12 +93,23 @@ help:  ## This help message.
 # At present this only tests the Rust code.
 # Kind of wish zsh had timeout...
 .PHONY: test
-test: build test-rust  ## Run the test actions.
+test: build test-rust test-webapp  ## Run the test actions.
 
 .PHONY: test-rust
 test-rust:
 	$(call hdr,"$(PROJECT)-$@")
 	cd qspm && cargo test
+
+# This is a bit of a hacky way to run the tests.
+# I want to be able to stop the test server after running the tests.
+.PHONY: test-webapp
+test-webapp:
+	$(call hdr,"$(PROJECT)-$@")
+	@-ps auxww | egrep 'PORT=8006|server.py 8006' | awk '{print $$2}' | xargs -L1 -I{} kill -9 {} 2>/dev/null
+	( $(MAKE) PORT=8006 serve 1>/dev/null 2>/dev/null & )
+	sleep 2
+	pipenv run python -m pytest tests/test_ui.py
+	@-ps auxww | egrep 'PORT=8006|server.py 8006' | awk '{print $$2}' | xargs -L1 -I{} kill -9 {} 2>/dev/null
 
 # Web app bundle.
 # This the collection of files that are used to install the
@@ -132,7 +143,7 @@ build: .setup $(VERFILE) $(WASM2WAT) $(WATFILE) $(JSFILE) $(HELPFILE) $(IMGFILES
 serve: build  ## Run the server.
 	$(call hdr,"$(PROJECT)-$@")
 	@echo "Serving $@ at http://localhost: $(PORT) exit via ^C."
-	cd www && pipenv run ../tools/server.py $(PORT)
+	cd www && pipenv run python ../tools/server.py $(PORT)
 
 # Image files.
 www/help/img/%.png : img/%.png

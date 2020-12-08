@@ -37,30 +37,35 @@ jobs:
           python-version: '3.8'
 
       - name: 'Install pipenv'
-        run: pip install pipenv
+        run: |
+          pip install pipenv
+          pipenv install -d
 
       - name: 'Install zip and unzip'
         run: sudo apt-get install -y zip unzip
 
-      - name: 'Setup Rust'
-        uses: actions/checkout@v2
-
       - name: 'Install pandoc'
         run: sudo apt-get install -y pandoc
 
-      - name: 'Setup'
+      - name: 'Install chrome'
+        run: |
+          sudo apt install -y gdebi-core wget
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo gdebi -n google-chrome-stable_current_amd64.deb
+
+      - name: 'Make setup'
         # Builds the wabt tools needed for the build.
         # It is actually part of the build but was
         # broken out here to make the steps a bit shorter.
         run: make setup
 
-      - name: 'Build'
+      - name: 'Make build'
         run: make
 
-      - name: 'Test'
+      - name: 'Make Test'
         run: make test
 
-      - name: 'Build webapp'
+      - name: 'Make webapp'
         run: make webapp
 
       - name: 'Upload webapp'
