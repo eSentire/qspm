@@ -4,15 +4,7 @@
         "remote_url": "",
         "wait_time": 10,
         "page_load_wait_time": 0,
-        "options": [
-            "headless",
-            "disable-infobars",
-            "--disable-gpu",
-            "--disable-extensions",
-            "--disable-dev-shm-usage",
-            "--disable-setuid-sandbox",
-            "--no-sandbox"
-        ],
+        "options": [],
         "capabilities": {},
         "version": "latest",
         "experimental_options": null,
