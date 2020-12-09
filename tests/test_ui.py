@@ -3,8 +3,8 @@ Test the UI using pylenium.
 '''
 import inspect
 import os
-import socket
 
+## Related to some sort pylenium issue.
 ##import pytest  # for pytest.raises()
 ##from selenium.common.exceptions import UnexpectedAlertPresentException
 
@@ -70,7 +70,7 @@ def test_raw_uloptions(py):  # pylint: disable=invalid-name
     py.get('#algorithmSelect').select('qspm-aws-256-gcm-siv')
 
 
-def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements
+def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements,too-many-locals
     '''
     Test that the example can be created, encrypted, decrypted,
     compressed and formatted.
@@ -125,9 +125,12 @@ def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements
     show.click()
     assert show.get_property('innerHTML') == 'Show'
 
-    # Encrypt/decrypt with the different algorithms.
-    algorithms = ['qspm-aws-256-gcm', 'qspm-aws-256-gcm-siv']
-    for algorithm in algorithms:
+    # Encrypt/decrypt with all of the available algorithms.
+    sel = py.get('#algorithmSelect')
+    num = sel.get_property('length')
+    for i in range(num):
+        opt = sel.select(i)
+        algorithm = opt.get_attribute('value')
         debug(f'algorithm: {algorithm}')
         py.get('#algorithmSelect').select(algorithm)
 
@@ -143,6 +146,22 @@ def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements
         text = py.get('#cryptText').get_attribute('value')
         debug('decrypt:\n' + text)
         assert '---------- qspm'  not in text
+
+        # Encrypt again.
+        py.find('#encryptButton')[0].click()
+        text2 = py.get('#cryptText').get_attribute('value')
+        debug('encrypt:\n' + text2)
+        assert '---------- qspm'  in text2
+
+        # Decrypt again.
+        py.find('#decryptButton')[0].click()
+        assert len(text) > 0
+        text2 = py.get('#cryptText').get_attribute('value')
+        debug('decrypt:\n' + text2)
+        assert '---------- qspm'  not in text2
+
+        # Make sure that the result is the same.
+        assert text == text2
 
     # Compress.
     py.find('#cryptCompress')[0].click()
