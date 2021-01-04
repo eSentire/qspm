@@ -1,3 +1,4 @@
+
 /*eslint no-unused-vars: ["warn", { "argsIgnorePattern": "^_" }]*/
 window.addEventListener("load", function(_evt) {
     window.doRecords = doRecords;
@@ -89,9 +90,7 @@ function doRecords() {
     // Schedule search event if the search
     // string has a value.
     // This allows the system to "remember" the last search.
-    if (window.recordsSearch) {
-        setTimeout(searchRecords(), 200);
-    }
+    setTimeout(searchRecords(), 200);
 }
 
 // Display the records.
@@ -133,12 +132,22 @@ function displayRecord(rec, div, rid, rkey) {
     deleteButton.innerHTML = "Delete";
 
     // Stack them.
-    var br = document.createElement("BR");
+    var br1 = document.createElement("BR");
+    var br2 = document.createElement("BR");
 
     var editButton = document.createElement("BUTTON");
     editButton.setAttribute("type", "button");
     editButton.setAttribute("onclick", "editRecord('" + frkey + "', true)");
     editButton.innerHTML = "Edit";
+
+    // The local show/hide is only for convenience.
+    // It works by "clicking" the top level Show/Hide button.
+    var showButton = document.createElement("BUTTON");
+    showButton.setAttribute("title", "show or hide password fields with the prefix 'pass'");
+    showButton.setAttribute("type", "button");
+    showButton.setAttribute("onclick", "toggleRecordsPasswords()");
+    showButton.classList.add("main-records-show-hide-button");
+    showButton.innerHTML = "Show";
 
     // Create the field table.
     var tbl = document.createElement("TABLE");
@@ -166,8 +175,10 @@ function displayRecord(rec, div, rid, rkey) {
 
     // Add the Delete and Edit buttons in the third column.
     td2.appendChild(deleteButton);
-    td2.appendChild(br);
+    td2.appendChild(br1);
     td2.appendChild(editButton);
+    td2.appendChild(br2);
+    td2.appendChild(showButton);
 
     trow.appendChild(td0);
     trow.appendChild(td1);
@@ -248,16 +259,24 @@ function toggleRecordsPasswords() {
     var i;
     var obj1 = document.getElementById("main-records-show-hide");
     var obj2s = document.getElementsByClassName("main-records-password-field");
+    var obj3s = document.getElementsByClassName("main-records-show-hide-button");
+    var atype = "?";
+    var title = "?";
     if (obj1.innerHTML == "Show") {
-        obj1.innerHTML = "Hide";
-        for (i=0; i<obj2s.length; i++) {
-            obj2s[i].setAttribute("type", "text");
-        }
+        title = "Hide";
+        atype = "text";
     } else {
-        obj1.innerHTML = "Show";
-        for (i=0; i<obj2s.length; i++) {
-            obj2s[i].setAttribute("type", "password");
-        }
+        title = "Show";
+        atype = "password";
+    }
+
+    // Update the objects.
+    obj1.innerHTML = title;  // the top level button
+    for (i=0; i<obj2s.length; i++) {
+        obj2s[i].setAttribute("type", atype);  // each field
+    }
+    for (i=0; i<obj3s.length; i++) {
+        obj3s[i].innerHTML = title;  // each record show button
     }
 }
 
