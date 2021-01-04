@@ -68,7 +68,7 @@ function dropboxUpload() {
         }
     ).then(
         data => {
-            alert("SUCCESS! upload worked: " + fname + " (" + data.length + ")");
+            alert("SUCCESS! upload worked: " + fname);
         }
     ).catch((error) => {
         alert("WARNING! upload failed with code " + error);
