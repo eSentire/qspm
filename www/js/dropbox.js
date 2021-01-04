@@ -96,7 +96,7 @@ function dropboxDownload() {
         return;
     }
     if (!fname) {
-        alert("WARNING! upload file was not specified");
+        alert("WARNING! download file was not specified");
         return;
     }
 
@@ -120,7 +120,7 @@ function dropboxDownload() {
             }, 0.30);
         }
     ).catch((error) => {
-        alert("WARNING! upload failed with code " + error);
+        alert("WARNING! download failed with code " + error + "\nYou may need to re-authenticate.");
     });
 }
 
@@ -179,7 +179,7 @@ function dropboxListFiles() {
                 var mtime = entries[i]["client_modified"];
                 var size = entries[i]["size"];
                 fname = fname.substring(PATH.length);  // strip off the prefix
-                console.log("file: " + fname);
+                //console.log("dropbox:list:file: " + fname);
 
                 tr = document.createElement("TR");
 
@@ -219,7 +219,7 @@ function dropboxListFiles() {
             obj2.appendChild(tbl);
         }
     ).catch((error) => {
-        alert("WARNING! list failed with code " + error);
+        alert("WARNING! list failed with code " + error + "\nYou may need to re-authenticate.");
         obj2.innerHTML = "0 files";
     });
 }
