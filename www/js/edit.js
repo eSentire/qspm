@@ -99,10 +99,6 @@ function editMakePanel(record, rkey) {
     legend.innerHTML = "Edit Record";
     fieldset.appendChild(legend)
 
-    //var h4 = document.createElement("H4");
-    //h4.innerHTML = rkey;
-    //div.appendChild(h4);
-
     // Create the field edit table.
     var table = document.createElement("TABLE");
     var thead = document.createElement("THEAD");
@@ -293,17 +289,33 @@ function editSaveRecord(rkey) {
     var trows = tbody.getElementsByTagName("TR");
     var rec = window.utilGetJsonRecords();
 
+    // Walk through to get the key and value pairs from the table
+    // columns.
     var name = '';
     var nrec = {};
     for (var i=0; i<trows.length; i++) {
         var tr = trows[i];
         var tds = tr.getElementsByTagName("TD");
-        var val = tds[1].getElementsByTagName("INPUT")[0].value.trim();
+
+        // Get the value for this row.
+        // The value is found in the second column: [1]
+        // and can be either an INPUT element or a TEXTAREA element.
+        var val = '';
+        if (tds[1].getElementsByTagName("INPUT").length > 0) {
+            // It is text - could be a password as well.
+            val = tds[1].getElementsByTagName("INPUT")[0].value.trim();
+        } else if (tds[1].getElementsByTagName("TEXTAREA").length > 0) {
+            // It is a textarea.
+            val = tds[1].getElementsByTagName("TEXTAREA")[0].value.trim();
+        }
+
+        // Get the key for this row.
+        // The key is in the first column: [0].
         if (i==0) {
-            if (val) {
-                name = val;
-            }
+            // The first row is always the id.
+            name = val;
         } else {
+            // The key is always a simple input.
             var key = tds[0].getElementsByTagName("INPUT")[0].value.trim();
             if (!key) {
                 continue;
@@ -313,17 +325,20 @@ function editSaveRecord(rkey) {
             }
         }
     }
+
+    // Check for an empty id.
     if (!name) {
         alert("WARNING! empty id field, will ignore");
         return;
     }
 
+    // Make sure that the "records" key exists.
     if (!("records" in rec)) {
         rec["records"] = {};
     }
     rec["records"][name] = nrec;
 
-    // TODO: get the table data.
+    // Update.
     window.utilUpdateRecords(rec, 0, false, false);
     doEdit();
     alert("SUCCESS: edited " + rkey);
