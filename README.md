@@ -271,6 +271,81 @@ Any record that starts with "pass" is assumed to be some sort of password
 field and is hidden by default but you can change that by clicking the Show
 button.
 
+## Javascript Lint
+This is how i lint the javascript code. There are a lot of possible tools for
+running the lint so i chose not to hard code a single approach.
+
+### Installation
+This is how i installed a linter.
+```bash
+$ npm init
+.
+.
+$ npx eslint --init
+.
+.
+npx: installed 113 in 9.348s
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · none
+✔ Does your project use TypeScript? · No / Yes
+✔ Where does your code run? · browser
+✔ What format do you want your config file to be in? · JavaScript
+Local ESLint installation not found.
+The config that you've selected requires the following dependencies:
+
+eslint@latest
+✔ Would you like to install them now with npm? · No / Yes
+Installing eslint@latest
+npm notice created a lockfile as package-lock.json. You should commit this file.
++ eslint@7.17.0
+added 113 packages from 65 contributors and audited 113 packages in 12.733s
+
+13 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Successfully created .eslintrc.js file in /Volumes/extra01/work/qspm
+ESLint was installed locally. We recommend using this local copy instead of your globally-installed copy.
+```
+
+### Linting
+Here is how i run lint.
+```bash
+$ npx eslint www/js
+
+/Volumes/extra01/work/qspm/www/js/add.js
+  108:10  warning  'addAppendTableRowAction' is defined but never used  no-unused-vars
+  149:10  warning  'addClearFields' is defined but never used           no-unused-vars
+  157:10  warning  'addSaveRecord' is defined but never used            no-unused-vars
+
+/Volumes/extra01/work/qspm/www/js/edit.js
+  220:10  warning  'editAppendTableRowAction' is defined but never used  no-unused-vars
+  273:10  warning  'editDeleteRow' is defined but never used             no-unused-vars
+  287:10  warning  'editSaveRecord' is defined but never used            no-unused-vars
+  349:10  warning  'editDeleteRecord' is defined but never used          no-unused-vars
+
+/Volumes/extra01/work/qspm/www/js/records.js
+  259:10  warning  'clearRecordsSearch' is defined but never used      no-unused-vars
+  266:10  warning  'toggleRecordsPasswords' is defined but never used  no-unused-vars
+  342:10  warning  'deleteRecord' is defined but never used            no-unused-vars
+  358:10  warning  'addRecord' is defined but never used               no-unused-vars
+  372:10  warning  'editRecord' is defined but never used              no-unused-vars
+
+/Volumes/extra01/work/qspm/www/js/tabs.js
+  3:10  warning  'openTab' is defined but never used  no-unused-vars
+
+/Volumes/extra01/work/qspm/www/js/utils.js
+  19:10  warning  'utilSetSessionKey' is defined but never used     no-unused-vars
+  53:10  warning  'utilButtonClearValue' is defined but never used  no-unused-vars
+
+✖ 15 problems (0 errors, 15 warnings)
+```
+
+> Note that the "never used" message is being applied to functions that
+> i know are called from the HTML.
+
 ## Future Work
-1. Extend the service providers to include Google Drive and Microsoft OneDrive.
+1. Extend the service providers to include Google Drive, Microsoft OneDrive and AWS S3.
 1. Improve the look and feel.
