@@ -27,8 +27,8 @@ function doRecords() {
     sch.setAttribute("id", "main-records-search");
     sch.setAttribute("onkeyup", "searchRecords()");
     sch.setAttribute("onpaste", "searchRecords()");
-    sch.setAttribute("placeholder", "Case insensitive search for records..");
-    sch.setAttribute("value", window.recordsSearch);
+    sch.setAttribute("placeholder", "Case insensitive id search for records..");
+    sch.value = window.recordsSearch;
     div.appendChild(sch);
 
     var nbsp = document.createElement("SPAN");
@@ -37,9 +37,9 @@ function doRecords() {
 
     var clear = document.createElement("BUTTON");
     clear.setAttribute("id", "main-records-search-clear");
-    clear.setAttribute("title", "clear the search expression");
     clear.setAttribute("type", "button");
     clear.setAttribute("onclick", "clearRecordsSearch()");
+    clear.title = "Clear the search expression.";
     clear.innerHTML = "Clear";
     div.appendChild(clear);
 
@@ -49,8 +49,8 @@ function doRecords() {
 
     var add = document.createElement("BUTTON");
     add.setAttribute("type", "button");
-    add.setAttribute("title", "add a new record");
     add.setAttribute("onclick", "addRecord()");
+    add.title = "Add a new record.";
     add.innerHTML = "Add";
     div.appendChild(add);
 
@@ -60,9 +60,9 @@ function doRecords() {
 
     var show = document.createElement("BUTTON");
     show.setAttribute("id", "main-records-show-hide");
-    show.setAttribute("title", "show or hide password fields with the prefix 'pass'");
     show.setAttribute("type", "button");
     show.setAttribute("onclick", "toggleRecordsPasswords()");
+    show.title = "Show or hide password fields with the prefix 'pass'.";
     show.innerHTML = "Show";
     div.appendChild(show);
 
@@ -143,10 +143,10 @@ function displayRecord(rec, div, rid, rkey) {
     // The local show/hide is only for convenience.
     // It works by "clicking" the top level Show/Hide button.
     var showButton = document.createElement("BUTTON");
-    showButton.setAttribute("title", "show or hide password fields with the prefix 'pass'");
     showButton.setAttribute("type", "button");
     showButton.setAttribute("onclick", "toggleRecordsPasswords()");
     showButton.classList.add("main-records-show-hide-button");
+    showButton.title = "Show or hide password fields with the prefix 'pass'.";
     showButton.innerHTML = "Show";
 
     // Create the field table.
@@ -227,16 +227,24 @@ function displayField(rec, tbody, fkey, fval) {
         inp.setAttribute("target", "_blank");
         inp.innerHTML = fval;
     } else {
-        inp = document.createElement("INPUT");
-        inp.setAttribute("size", "120");
+        if (fkey.toUpperCase().startsWith("PASS")) {
+            // Handle passwords - fields are always hidden.
+            inp = document.createElement("INPUT");
+            inp.setAttribute("type", "password");  // hide by default
+            inp.className = "main-records-password-field";
+        } else if (fkey.toUpperCase().startsWith("NOTE")) {
+            // Handle text areas.
+            inp = document.createElement("TEXTAREA");
+            inp.setAttribute("rows", "3");
+            inp.className = "main-records-textarea-field";
+        } else {
+            inp = document.createElement("INPUT");
+            inp.setAttribute("type", "text");
+            inp.className = "main-records-text-field";
+        }
         inp.setAttribute("readonly", true);
         inp.setAttribute("onclick", "window.utilSelectTextByObject(this);");
-        if (fkey.toUpperCase().startsWith("PASS")) {
-            inp.className = "main-records-password-field";
-            inp.setAttribute("type", "password");  // hide by default
-        } else {
-            inp.setAttribute("type", "text");
-        }
+        inp.setAttribute("style", "width:99%; display:block; border:none");
         inp.value = fval;
     }
     td1.appendChild(inp);
