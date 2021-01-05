@@ -155,8 +155,12 @@ Records are viewed in `Records` tab. There is a powerful search/filter
 feature that you can use to prune what you. If you are using the
 example, try typing "google" in the search box to see how it works.
 
-By default all fields that have a "pass" prefix are hidden. To make
-them visible, click the "Show" button.
+By default all fields that have a case insensitive "pass" prefix are
+hidden. To make them visible, click the "Show" button.
+
+All fields that have a case insensitive "note" prefix are treated
+as "textarea" fields that allow you to conveniently store notes
+with multiple lines.
 
 Here is what the records look like if you used the example setup.
 
