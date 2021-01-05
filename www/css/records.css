@@ -33,6 +33,11 @@
     color: #154360;
 }
 
+.main-record-div table tbody tr td textarea {
+    background-color: #eaf2f8;
+    color: #154360;
+}
+
 .main-record-div table tbody tr td button {
     background-color: #eaf2f8;
     color: #154360;
@@ -48,6 +53,9 @@
     background-color: #154360;
     color: #eaf2f8;
     text-align: right;
+    padding: 2px;
+    padding-right: 6px;
+    vertical-align: text-top;
     width: 10%;
 }
 
