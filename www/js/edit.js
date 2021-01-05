@@ -16,12 +16,12 @@ function editSearch() {
 
     var sch = document.createElement("INPUT");
     sch.setAttribute("type", "text");
-    sch.setAttribute("value", "");
     sch.setAttribute("id", "main-edit-search");
     sch.setAttribute("size", "100");
     sch.setAttribute("onkeyup", "editSearchRecords()");
     sch.setAttribute("onpaste", "editSearchRecords()");
     sch.setAttribute("placeholder", "Case insensitive search for the record to edit..");
+    sch.value = "";
     div.appendChild(sch);
 
     var div1 = document.createElement("DIV");
@@ -94,24 +94,33 @@ function editMakePanel(record, rkey) {
     var div = document.getElementById('editInsert');
     div.innerHTML = "";  // clear the DOM.
 
-    var h4 = document.createElement("H4");
-    h4.innerHTML = rkey;
-    div.appendChild(h4);
+    var fieldset = document.createElement("FIELDSET");
+    var legend = document.createElement("LEGEND");
+    legend.innerHTML = "Edit Record";
+    fieldset.appendChild(legend)
 
+    //var h4 = document.createElement("H4");
+    //h4.innerHTML = rkey;
+    //div.appendChild(h4);
+
+    // Create the field edit table.
     var table = document.createElement("TABLE");
     var thead = document.createElement("THEAD");
     var tr = document.createElement("TR");
 
     var th = document.createElement("TH");
     th.innerHTML = "Field"
+    th.classList.add("edit-table-column-header");
     tr.appendChild(th);
 
     th = document.createElement("TH");
     th.innerHTML = "Value"
+    th.classList.add("edit-table-column-header");
     tr.appendChild(th);
 
     th = document.createElement("TH");
     th.innerHTML = "Options"
+    th.classList.add("edit-table-column-header");
     tr.appendChild(th);
 
     thead.appendChild(tr);
@@ -125,14 +134,17 @@ function editMakePanel(record, rkey) {
     tr = document.createElement("TR");
 
     var td = document.createElement("TD");
-    td.innerHTML = "Unique Record Name"
+    td.innerHTML = "Unique Record Name (id)"
+    td.title = "Used for record search. Can be anything.";
     tr.appendChild(td);
 
     td = document.createElement("TD");
     var inp = document.createElement("INPUT");
     inp.setAttribute("type", "text");
-    inp.setAttribute("value", rkey);
-    inp.setAttribute("size", "120");
+    inp.setAttribute("style", "width:640px");
+    inp.classList.add("edit-table-column");
+    inp.value = rkey;
+    inp.title = "Changing this will create a new record.";
     td.appendChild(inp);
     tr.appendChild(td);
 
@@ -146,60 +158,65 @@ function editMakePanel(record, rkey) {
         var val = record[key];
         editAppendTableRow(tbody, rkey, key, val);
     }
-    div.appendChild(table);
+    fieldset.appendChild(table);
 
+    // Create the action buttons.
     // Fixed rkey is for the case where the rkey has
     // an embedded single quote.
     var frkey = rkey.replace("'", "\\'");
     var button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "add a new row");
     button.setAttribute("onclick", "editAppendTableRowAction('" + frkey + "')");
+    button.title = "Add a new row.";
     button.innerHTML = "Append Row";
-    div.appendChild(button);
+    fieldset.appendChild(button);
 
     var span = document.createElement("SPAN");
     span.innerHTML = "&nbsp;";
-    div.appendChild(span);
+    fieldset.appendChild(span);
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "save the changes");
     button.setAttribute("onclick", "editSaveRecord('" + frkey + "')");
+    button.title = "Save the changes.";
     button.innerHTML = "Save";
-    div.appendChild(button);
+    fieldset.appendChild(button);
 
     span = document.createElement("SPAN");
     span.innerHTML = "&nbsp;";
-    div.appendChild(span);
+    fieldset.appendChild(span);
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "Delete this record, a confirmation dialogue box will confirm");
     button.setAttribute("onclick", "editDeleteRecord('" + frkey + "')");
+    button.title = "Delete this record, a confirmation dialogue box will confirm.";
     button.innerHTML = "Delete";
-    div.appendChild(button);
+    fieldset.appendChild(button);
 
     span = document.createElement("SPAN");
     span.innerHTML = "&nbsp;";
-    div.appendChild(span);
+    fieldset.appendChild(span);
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "quit the edit operation, no changes are made");
     button.setAttribute("onclick", "doEdit()");
+    button.title = "Quit the edit operation, no changes are made.";
     button.innerHTML = "Quit";
-    div.appendChild(button);
+    fieldset.appendChild(button);
 
     var par = document.createElement("P");
     par.setAttribute("style", "font-size:80%;font-style:italic");
     par.innerHTML = "NOTE: If the unique record name is changed, a new record is created when the 'Save' operation is run. The old record is not changed.";
-    div.appendChild(par);
+    fieldset.appendChild(par);
 
+    // Create the local password generator.
     var fieldset1 = window.passwordCreateFieldset('editPassword',
                                                   'Generate Password',
                                                   true,
                                                   '');
+
+    // Create the top level elements.
+    div.appendChild(fieldset);
     div.appendChild(document.createElement("P"));
     div.appendChild(fieldset1);
 }
@@ -210,21 +227,35 @@ function editAppendTableRowAction(rkey) {
 }
 
 function editAppendTableRow(tbody, rkey, key, val) {
+    // rkey - is the unique record key
     var tr = document.createElement("TR");
-
-    var td = document.createElement("TD");
-    var inp = document.createElement("INPUT");
-    inp.setAttribute("type", "text");
-    inp.setAttribute("value", key);
-    inp.setAttribute("size", "32");
-    td.appendChild(inp);
-    tr.appendChild(td);
+    var td;
+    var inp;
+    var textarea = key.toUpperCase().startsWith("NOTE");
+    console.log("edit-key:" + key)
+    console.log("edit-rkey:" + rkey)
 
     td = document.createElement("TD");
     inp = document.createElement("INPUT");
     inp.setAttribute("type", "text");
-    inp.setAttribute("value", val);
-    inp.setAttribute("size", "120");
+    inp.setAttribute("size", "36");
+    inp.classList.add("edit-table-column");
+    inp.value = key;
+    td.appendChild(inp);
+    tr.appendChild(td);
+
+    td = document.createElement("TD");
+    if (textarea) {
+        inp = document.createElement("TEXTAREA");
+        inp.setAttribute("rows", "3");
+    }
+    else {
+        inp = document.createElement("INPUT");
+    }
+    inp.setAttribute("type", "text");
+    inp.setAttribute("style", "width:640px");
+    inp.classList.add("edit-table-column");
+    inp.value = val;
     td.appendChild(inp);
     tr.appendChild(td);
 
