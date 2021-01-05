@@ -274,5 +274,3 @@ button.
 ## Future Work
 1. Extend the service providers to include Google Drive and Microsoft OneDrive.
 1. Improve the look and feel.
-1. Make selection from the raw input dropbox file list easier. Perhaps they could be selectable inputs.
-1. Consider adding fields that are textarea boxes in addition to simple text fields.
