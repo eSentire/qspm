@@ -67,7 +67,7 @@ function dropboxUpload() {
             }
         }
     ).then(
-        data => {
+        _result => {
             alert("SUCCESS! upload worked: " + fname);
         }
     ).catch((error) => {
