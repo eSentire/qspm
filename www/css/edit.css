@@ -1,0 +1,13 @@
+/* edit page */
+.edit-table-column-header {
+    background-color: #154360;
+    color: #eaf2f8;
+    align: left;
+}
+
+.edit-table-column {
+    background-color: #eaf2f8;
+    color: #154360;
+    border-style: solid;
+    border-width: 1px;
+}

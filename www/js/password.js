@@ -99,12 +99,13 @@ function passwordCreateFieldset(prefix, title, show, sstore) {
     input.setAttribute("onkeyup", "window.passwordSize(this,'" + sid + "','" + sstore + "')");
     input.setAttribute("onpaste", "window.passwordSize(this,'" + sid + "','" + sstore + "')");
     input.setAttribute("size", "40");
+    input.classList.add("password-data");
     if (sstore) {
         // If a session storage key was specified,
         // use it to initialize the input.
         let data = sessionStorage.getItem(sstore);
         if (data) {
-            input.setAttribute("value", data);
+            input.value = data;
         }
     }
     fieldset.appendChild(input);
@@ -150,7 +151,7 @@ function passwordCreateFieldset(prefix, title, show, sstore) {
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
     button.setAttribute("onclick", "window.passwordGenerate('" + pid + "','" + sid + "', '" + sstore + "')");
-    button.setAttribute("title", "generate a [15..30] character, pseudo-random password");
+    button.title = "Generate a [15..30] character, pseudo-random password.";
     button.innerHTML = "Generate";
     fieldset.appendChild(button);
 

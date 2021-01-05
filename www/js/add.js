@@ -25,6 +25,7 @@ function doAdd() {
     for (i in thns) {
         var th = document.createElement("TH");
         th.innerHTML = thns[i];
+        th.classList.add("add-table-column-header");
         tr.appendChild(th);
     }
     thead.appendChild(tr);
@@ -41,11 +42,13 @@ function doAdd() {
     tr.appendChild(td);
 
     td = document.createElement("TD");
-    td.innerHTML = "Unique Record Name";
+    td.title = "Used for record search. Can be anything.";
+    td.innerHTML = "Unique Record Name (id)";
     tr.appendChild(td);
 
     td = document.createElement("TD");
     var input = document.createElement("INPUT");
+    input.classList.add("add-table-column");
     input.setAttribute("type", "text");
     input.setAttribute("id", "add-rec-0-key");
     input.setAttribute("size", "120");
@@ -65,8 +68,8 @@ function doAdd() {
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "add a new row");
     button.setAttribute("onclick", "addAppendTableRowAction()");
+    button.title = "Add a new row.";
     button.innerHTML = "Append Row";
     fieldset.appendChild(button);
 
@@ -76,8 +79,8 @@ function doAdd() {
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "save if this record is unique");
     button.setAttribute("onclick", "addSaveRecord()");
+    button.title = "Save if this record is unique otherwise report a conflict.";
     button.innerHTML = "Save";
     fieldset.appendChild(button);
 
@@ -87,8 +90,8 @@ function doAdd() {
 
     button = document.createElement("BUTTON");
     button.setAttribute("type", "button");
-    button.setAttribute("title", "clear the fields");
     button.setAttribute("onclick", "addClearFields()");
+    button.title = "Clear the fields.";
     button.innerHTML = "Clear";
     fieldset.appendChild(button);
 
@@ -123,6 +126,7 @@ function addAppendTableRow(tbody, i) {
 
     td = document.createElement("TD");
     var input = document.createElement("INPUT");
+    input.classList.add("add-table-column");
     input.setAttribute("type", "text");
     input.setAttribute("id", "add-rec-" + i + "-key");
     input.setAttribute("size", "32");
@@ -130,10 +134,8 @@ function addAppendTableRow(tbody, i) {
     tr.appendChild(td);
 
     td = document.createElement("TD");
-    //input = document.createElement("TEXTAREA");
-    //input.setAttribute("rows", "1");
-    //input.setAttribute("cols", "80");
     input = document.createElement("INPUT");
+    input.classList.add("add-table-column");
     input.setAttribute("type", "text");
     input.setAttribute("id", "add-rec-" + i + "-val");
     input.setAttribute("size", "120");

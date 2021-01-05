@@ -5,7 +5,11 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <title>qspm</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/password.css">
+    <link rel="stylesheet" href="css/raw.css">
     <link rel="stylesheet" href="css/records.css">
+    <link rel="stylesheet" href="css/edit.css">
+    <link rel="stylesheet" href="css/add.css">
     <script src="js/version.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/password.js"></script>
@@ -71,6 +75,7 @@
                   <input
                     type="text"
                     id="ulDropboxToken"
+                    class="raw-input"
                     placeholder="DropBox access token.."
                     onkeyup="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
                     onpaste="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
@@ -89,6 +94,7 @@
                   <input
                     type="text"
                     id="ulDropboxFile"
+                    class="raw-input"
                     placeholder="File name.."
                     onkeyup="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
                     onpaste="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
@@ -139,6 +145,7 @@
           <input
             type="text"
             id="ulUrl"
+            class="raw-input"
             placeholder="URL name.."
             size="80">
           <button
@@ -157,7 +164,7 @@
         <!-- Encrypt/Decrypt -->
         <legend>Raw Data</legend>
         <div style="width: 100%; min-width: 200px;">
-          <textarea rows="16" id="cryptText" style="width: 100%"></textarea>
+          <textarea rows="16" id="cryptText" class="raw-input" style="width: 100%"></textarea>
         </div>
         <p></p>
         <button

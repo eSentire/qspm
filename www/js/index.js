@@ -64,7 +64,7 @@ function algorithmCreateSelectBox() {
     for (var i=0; i<window.wasm.fct_get_num_algorithms(); i++) {
         var algorithm = window.wasm.fct_get_algorithm(i);
         var option = document.createElement("OPTION");
-        option.setAttribute("value", algorithm);
+        option.value = algorithm;
         option.innerHTML = algorithm;
         if (i == 0) {
             option.setAttribute("selected", "selected");
