@@ -34,14 +34,14 @@ def test_tabs(py):  # pylint: disable=invalid-name
     debug(f'URL: {URL}')
     py.visit(URL)
 
-    assert py.find('#tabRaw')
+    assert py.find('#tabSetup')
     assert py.find('#tabRecords')
     assert py.find('#tabAdd')
     assert py.find('#tabEdit')
     assert py.find('#tabHelp')
 
     # Click on each element that works without JSON.
-    py.find('#tabRaw')[0].click()
+    py.find('#tabSetup')[0].click()
     py.find('#tabAdd')[0].click()
     py.find('#tabHelp')[0].click()
 
@@ -51,10 +51,10 @@ def test_tabs(py):  # pylint: disable=invalid-name
     #with pytest.raises(UnexpectedAlertPresentException):
     #    py.find('#tabRecords')[0].click()
     #    time.sleep(5)  # this is an absurdly long wait
-    #py.find('#tabRaw')[0].click()
+    #py.find('#tabSetup')[0].click()
 
 
-def test_raw_uloptions(py):  # pylint: disable=invalid-name
+def test_setup_uloptions(py):  # pylint: disable=invalid-name
     '''
     Verify that the upload/download options select box works.
     '''
@@ -70,7 +70,7 @@ def test_raw_uloptions(py):  # pylint: disable=invalid-name
     py.get('#algorithmSelect').select('qspm-aws-256-gcm-siv')
 
 
-def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements,too-many-locals
+def test_setup_example(py):  # pylint: disable=invalid-name,too-many-statements,too-many-locals
     '''
     Test that the example can be created, encrypted, decrypted,
     compressed and formatted.
@@ -79,7 +79,7 @@ def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements,to
     py.visit(URL)
 
     # Make sure that the example button generates what we expect.
-    assert py.find('#tabRaw')
+    assert py.find('#tabSetup')
     assert py.find('#cryptExample')
     py.find('#cryptExample')[0].click()
     text = py.get('#cryptText').get_attribute('value')
@@ -88,7 +88,7 @@ def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements,to
     # Now click on the password generation button.
     generate = None
     show = None
-    buttons = py.get('#rawPasswordFieldset').find('button')
+    buttons = py.get('#setupPasswordFieldset').find('button')
     for button in buttons:
         html = button.get_property('innerHTML')
         debug(f'button: "{html}"')
@@ -103,17 +103,17 @@ def test_raw_example(py):  # pylint: disable=invalid-name,too-many-statements,to
     generate.click()
 
     # Make sure that it is different each time.
-    pw1 = py.find('#rawPasswordId')[0].get_attribute('value')
+    pw1 = py.find('#setupPasswordId')[0].get_attribute('value')
     generate.click()
-    pw2 = py.find('#rawPasswordId')[0].get_attribute('value')
+    pw2 = py.find('#setupPasswordId')[0].get_attribute('value')
     generate.click()
-    pw3 = py.find('#rawPasswordId')[0].get_attribute('value')
+    pw3 = py.find('#setupPasswordId')[0].get_attribute('value')
     assert pw1 != pw2
     assert pw1 != pw3
     assert pw2 != pw3
 
     # Verify that a master password was created.
-    inp = py.find('#rawPasswordId')[0]
+    inp = py.find('#setupPasswordId')[0]
     text = inp.get_attribute('value')
     assert len(text) > 0
     debug(f'password: {text}')
