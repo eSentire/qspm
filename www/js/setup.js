@@ -14,6 +14,7 @@ window.addEventListener("load", function(_evt) {
     window.doDecrypt = doDecrypt;
     window.doEncrypt = doEncrypt;
     window.doUlOptions = doUlOptions;
+    window.doMiscNoteHeight = doMiscNoteHeight;
     initSetup();
 });
 
@@ -38,6 +39,9 @@ function initSetup() {
     } else {
         window.utilSetCryptTextSize();
     }
+
+    // Set the note height.
+    sessionStorage.setItem("noteHeight", "2");
 }
 
 // Upload/download options.
@@ -276,4 +280,10 @@ function exampleText() {
     };
     var text = JSON.stringify(rec, null, 4);
     window.utilSetCryptText(text);
+}
+
+// Capture the default note textarea height.
+function doMiscNoteHeight() {
+    var obj = document.getElementById('miscNoteHeight');
+    sessionStorage.setItem("noteHeight", obj.value);
 }
