@@ -57,6 +57,7 @@ setup: .setup  ## Initial setup.
 .PHONY: clean
 clean:  ## Clean up everything.
 	$(call hdr,"$@")
+	-pipenv --rm
 	-find . -type f -name '*~' -delete
 	-rm -rf wabt
 	-git clean -xdf -e keep .
