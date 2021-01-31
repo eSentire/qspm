@@ -11,10 +11,10 @@ aes-gcm = "0.8.0"
 aes-gcm-siv = "0.9.0"
 base64 = "0.13.0"
 chacha20poly1305 = "0.7.1"
-# block-padding = "0.2.1"
 num-format = "0.4.0"
+#rand = "0.8.3" <-- this version caused compile errors
 rand = "0.7.3"
-wasm-bindgen = "0.2.68"
+wasm-bindgen = "0.2.70"
 
 [lib]
 crate-type =["cdylib"]
