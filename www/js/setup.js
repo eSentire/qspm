@@ -41,7 +41,7 @@ function initSetup() {
     }
 
     // Set the note height.
-    sessionStorage.setItem("noteHeight", "2");
+    sessionStorage.setItem("noteHeight", "1");
 }
 
 // Upload/download options.
