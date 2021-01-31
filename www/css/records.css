@@ -9,6 +9,7 @@
 #main-records-search {
     width: 80%;
     padding-left: 20px;
+    font-size: 120%
 }
 
 .main-record-div {
@@ -26,21 +27,27 @@
     width: 100%;
     background-color: #eaf2f8;
     color: #154360;
+    font-size: 120%;
 }
 
 .main-record-div table tbody tr td input {
     background-color: #eaf2f8;
     color: #154360;
+    font-size: 120%;
 }
 
 .main-record-div table tbody tr td textarea {
-    background-color: #eaf2f8;
+    /*background-color: #eaf2f8;*/
+    background-color: #d9e1e7;
     color: #154360;
+    font-size: 120%;
 }
 
 .main-record-div table tbody tr td button {
     background-color: #eaf2f8;
     color: #154360;
+    font-size: 80%;
+    margin: 2px;
 }
 
 .main-record-div table tbody tr:nth-child(1) td:nth-child(2) {
