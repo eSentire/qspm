@@ -6,7 +6,7 @@
     <title>qspm</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/password.css">
-    <link rel="stylesheet" href="css/raw.css">
+    <link rel="stylesheet" href="css/setup.css">
     <link rel="stylesheet" href="css/records.css">
     <link rel="stylesheet" href="css/edit.css">
     <link rel="stylesheet" href="css/add.css">
@@ -15,7 +15,7 @@
     <script src="js/password.js"></script>
     <script src="js/dropbox.js"></script>
     <script src="js/help.js"></script>
-    <script src="js/raw.js"></script>
+    <script src="js/setup.js"></script>
     <script src="js/add.js"></script>
     <script src="js/edit.js"></script>
     <script src="js/records.js"></script>
@@ -25,9 +25,9 @@
     <!-- Tab links -->
     <div class="tab top-div">
       <button
-        id="tabRaw"
-        onclick="openTab(event, 'Raw')"
-        class="tablinks">Raw</button>
+        id="tabSetup"
+        onclick="openTab(event, 'Setup')"
+        class="tablinks">Setup</button>
       <button
         id="tabRecords"
         onclick="openTab(event, 'Records')"
@@ -49,9 +49,9 @@
     <div id="middle-div">&nbsp;</div>
 
     <!-- ************************************************************************ -->
-    <!-- ** Raw -->
+    <!-- ** Setup -->
     <!-- ************************************************************************ -->
-    <div id="Raw" class="tabcontent">
+    <div id="Setup" class="tabcontent">
       <label>Upload/Download Options:</label>&nbsp;
       <select id="ulOptionsSelect" onchange="window.doUlOptions()" selected="none">
         <option value="dropbox">DropBox</option>
@@ -64,7 +64,7 @@
       <p></p>
 
       <!-- Dropbox Upload/Download -->
-      <div id="rawUlDivDropBox" style="display:none">
+      <div id="setupUlDivDropBox" style="display:none">
         <fieldset>
           <legend>DropBox</legend>
           <table>
@@ -75,7 +75,7 @@
                   <input
                     type="text"
                     id="ulDropboxToken"
-                    class="raw-input"
+                    class="setup-input"
                     placeholder="DropBox access token.."
                     onkeyup="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
                     onpaste="utilSetSessionKey('ulDropboxToken','ssidDropboxToken')"
@@ -94,7 +94,7 @@
                   <input
                     type="text"
                     id="ulDropboxFile"
-                    class="raw-input"
+                    class="setup-input"
                     placeholder="File name.."
                     onkeyup="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
                     onpaste="utilSetSessionKey('ulDropboxFile','ssidDropboxFile')"
@@ -127,7 +127,7 @@
       </div>
 
       <!-- File Download -->
-      <div id="rawUlDivFile" style="display:none">
+      <div id="setupUlDivFile" style="display:none">
         <fieldset>
           <legend>Download File</legend>
           <button
@@ -139,13 +139,13 @@
       </div>
 
       <!-- Url Download -->
-      <div id="rawUlDivUrl" style="display:none">
+      <div id="setupUlDivUrl" style="display:none">
         <fieldset>
           <legend>Download URL</legend>
           <input
             type="text"
             id="ulUrl"
-            class="raw-input"
+            class="setup-input"
             placeholder="URL name.."
             size="80">
           <button
@@ -157,14 +157,14 @@
       </div>
 
       <p></p>
-      <div id="rawPasswordFieldset"></div>
+      <div id="setupPasswordFieldset"></div>
 
       <p></p>
       <fieldset>
         <!-- Encrypt/Decrypt -->
-        <legend>Raw Data</legend>
+        <legend>Setup Data</legend>
         <div style="width: 100%; min-width: 200px;">
-          <textarea rows="16" id="cryptText" class="raw-input" style="width: 100%"></textarea>
+          <textarea rows="16" id="cryptText" class="setup-input" style="width: 100%"></textarea>
         </div>
         <p></p>
         <button
