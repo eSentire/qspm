@@ -4,15 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-mypy = "==0.790"
+mypy = "==0.800"
 pylint = "==2.6.0"
-pytest = "==6.1.2"
-pytest-cov = "==2.10.1"
+pytest = "==6.2.2"
+pytest-cov = "==2.11.1"
 pyleniumio = "*"
 
 [packages]
-pipupgrade = "==1.7.3"
+pipupgrade = "==1.8.4"
 pur = "==5.3.0"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

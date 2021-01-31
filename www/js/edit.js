@@ -228,6 +228,8 @@ function editAppendTableRow(tbody, rkey, key, val) {
     var td;
     var inp;
     var textarea = key.toUpperCase().startsWith("NOTE");
+    var noteHeight = sessionStorage.getItem("noteHeight");
+    
     console.log("edit-key:" + key)
     console.log("edit-rkey:" + rkey)
 
@@ -243,7 +245,7 @@ function editAppendTableRow(tbody, rkey, key, val) {
     td = document.createElement("TD");
     if (textarea) {
         inp = document.createElement("TEXTAREA");
-        inp.setAttribute("rows", "3");
+        inp.setAttribute("rows", noteHeight);
     }
     else {
         inp = document.createElement("INPUT");

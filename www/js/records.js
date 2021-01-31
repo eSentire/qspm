@@ -218,6 +218,7 @@ function displayField(rec, tbody, fkey, fval) {
     // which case they are linkable.
     var inp;
     var ufval = "";
+    var noteHeight = sessionStorage.getItem("noteHeight");
     if (typeof fval == 'string' || fval instanceof String) {
         ufval = fval.toUpperCase();
     }
@@ -235,7 +236,7 @@ function displayField(rec, tbody, fkey, fval) {
         } else if (fkey.toUpperCase().startsWith("NOTE")) {
             // Handle text areas.
             inp = document.createElement("TEXTAREA");
-            inp.setAttribute("rows", "3");
+            inp.setAttribute("rows", noteHeight);
             inp.className = "main-records-textarea-field";
         } else {
             inp = document.createElement("INPUT");

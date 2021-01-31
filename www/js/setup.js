@@ -1,4 +1,4 @@
-// Raw tab services.
+// Setup tab services.
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }]*/
 window.addEventListener("load", function(_evt) {
     document.getElementById('ulDownloadFile').addEventListener('click', downloadFile);
@@ -10,20 +10,21 @@ window.addEventListener("load", function(_evt) {
     document.getElementById('cryptClear').addEventListener('click', clearText);
     document.getElementById('cryptExample').addEventListener('click', exampleText);
     document.getElementById('cryptTextSize').addEventListener('click', window.utilSetCryptTextSize);
-    document.getElementById("tabRaw").click();
+    document.getElementById("tabSetup").click();
     window.doDecrypt = doDecrypt;
     window.doEncrypt = doEncrypt;
     window.doUlOptions = doUlOptions;
-    initRaw();
+    window.doMiscNoteHeight = doMiscNoteHeight;
+    initSetup();
 });
 
 // Initialize. Basically just add in the password fieldset.
-function initRaw() {
-    var pfs = document.getElementById('rawPasswordId');
+function initSetup() {
+    var pfs = document.getElementById('setupPasswordId');
     if (!pfs) {
         // Don't re-create it if it is already there.
-        var div = document.getElementById('rawPasswordFieldset');
-        var fieldset = window.passwordCreateFieldset('rawPassword',
+        var div = document.getElementById('setupPasswordFieldset');
+        var fieldset = window.passwordCreateFieldset('setupPassword',
                                                      'Master Password',
                                                      false,
                                                      'ssidMasterPasswordValue');
@@ -38,14 +39,17 @@ function initRaw() {
     } else {
         window.utilSetCryptTextSize();
     }
+
+    // Set the note height.
+    doMiscNoteHeight();
 }
 
 // Upload/download options.
 function doUlOptions() {
     var obj1 = document.getElementById('ulOptionsSelect');
-    var obj2 = document.getElementById('rawUlDivDropBox');
-    var obj3 = document.getElementById('rawUlDivFile');
-    var obj4 = document.getElementById('rawUlDivUrl');
+    var obj2 = document.getElementById('setupUlDivDropBox');
+    var obj3 = document.getElementById('setupUlDivFile');
+    var obj4 = document.getElementById('setupUlDivUrl');
     if (obj1.value == "dropbox") {
         obj2.setAttribute("style", "display:inline");
         obj3.setAttribute("style", "display:none");
@@ -120,7 +124,7 @@ function downloadUrl() {
 
 // Encrypt.
 function doEncrypt() {
-    var obj1 = document.getElementById("rawPasswordId");
+    var obj1 = document.getElementById("setupPasswordId");
     var pass = obj1.value.trim();
     var text = window.utilGetCryptText().trim();
     if (!pass) {
@@ -142,7 +146,7 @@ function doEncrypt() {
 
 // Decrypt.
 function doDecrypt() {
-    var obj1 = document.getElementById("rawPasswordId");
+    var obj1 = document.getElementById("setupPasswordId");
     var pass = obj1.value.trim();
     var text = window.utilGetCryptText().trim();
     if (!pass) {
@@ -276,4 +280,10 @@ function exampleText() {
     };
     var text = JSON.stringify(rec, null, 4);
     window.utilSetCryptText(text);
+}
+
+// Capture the default note textarea height.
+function doMiscNoteHeight() {
+    var obj = document.getElementById('miscNoteHeight');
+    sessionStorage.setItem("noteHeight", obj.value);
 }
