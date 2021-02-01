@@ -40,6 +40,9 @@ function initSetup() {
         window.utilSetCryptTextSize();
     }
 
+    // Set the ul options.
+    doUlOptions();
+
     // Set the note height.
     doMiscNoteHeight();
 }
@@ -50,6 +53,7 @@ function doUlOptions() {
     var obj2 = document.getElementById('setupUlDivDropBox');
     var obj3 = document.getElementById('setupUlDivFile');
     var obj4 = document.getElementById('setupUlDivUrl');
+
     if (obj1.value == "dropbox") {
         obj2.setAttribute("style", "display:inline");
         obj3.setAttribute("style", "display:none");
